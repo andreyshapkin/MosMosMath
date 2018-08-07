@@ -24,10 +24,12 @@ public class MainMathClass {
         SUB_2DIG_2DIG,
 
         MULT_1DIG,
+        MULT_1DIG_2DIG_ROUND,
         MULT_1DIGxUNDER20,
         MULT_1DIGxUNDER30,
 
         DIV_1DIG,
+        DIV_1DIG_2DIG_ROUND,
         DIV_1DIGxUNDER20,
         DIV_1DIGxUNDER30;
     }
@@ -47,11 +49,16 @@ public class MainMathClass {
     List<OperationType> listOfPossibleOpTypes = new ArrayList<OperationType>();
 
     MainMathClass() {
-        listOfPossibleOpTypes.add(OperationType.ADD_1DIG);
+        //listOfPossibleOpTypes.add(OperationType.ADD_2DIG);
+        for (OperationType type : OperationType.values()) {
+            if (type != OperationType.INVALID) {
+                listOfPossibleOpTypes.add(type);
+            }
+        }
     }
 
     void generate() {
-        OperationType operationType = OperationType.ADD_1DIG;
+        OperationType operationType = listOfPossibleOpTypes.get(random.nextInt(listOfPossibleOpTypes.size()));
         currentMathProblem = generate_math_problem(operationType);
     }
 
@@ -141,6 +148,10 @@ public class MainMathClass {
             int op1 = random.nextInt(9) + 2;
             int op2 = random.nextInt(9) + 2;
             generate_mult_generic(mathProblem, op1, op2);
+        } else if (operationType == OperationType.MULT_1DIG_2DIG_ROUND) {
+            int op1 = random.nextInt(9) + 2;
+            int op2 = (random.nextInt(9) + 2) * 10;
+            generate_mult_generic(mathProblem, op1, op2);
         } else if (operationType == OperationType.MULT_1DIGxUNDER20) {
             int op1 = random.nextInt(9) + 2;
             int op2 = random.nextInt(19) + 2;
@@ -154,6 +165,10 @@ public class MainMathClass {
         } else if (operationType == OperationType.DIV_1DIG) {
             int op2 = random.nextInt(9) + 2;
             int result = random.nextInt(9) + 2;
+            generate_div_generic(mathProblem, op2, result);
+        } else if (operationType == OperationType.DIV_1DIG_2DIG_ROUND) {
+            int op2 = random.nextInt(9) + 2;
+            int result = (random.nextInt(9) + 2) * 10;
             generate_div_generic(mathProblem, op2, result);
         } else if (operationType == OperationType.DIV_1DIGxUNDER20) {
             int op2 = random.nextInt(9) + 2;

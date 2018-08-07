@@ -111,6 +111,12 @@ public class MainMathClassTest {
             assertInRange(mathProblem.operands.get(1), 1, 10);
             assertGenericMult(mathProblem);
 
+            mathProblem = mainMathClass.generate_math_problem(MainMathClass.OperationType.MULT_1DIG_2DIG_ROUND);
+            assertInRange(mathProblem.operands.get(0), 1, 10);
+            assertInRange(mathProblem.operands.get(1), 10, 100);
+            assertTrue( (mathProblem.operands.get(1) % 10) == 0);
+            assertGenericMult(mathProblem);
+
             mathProblem = mainMathClass.generate_math_problem(MainMathClass.OperationType.MULT_1DIGxUNDER20);
             assertInRange(mathProblem.operands.get(0), 1, 10);
             assertInRange(mathProblem.operands.get(1), 1, 20);
@@ -129,6 +135,11 @@ public class MainMathClassTest {
             MathProblem mathProblem = mainMathClass.generate_math_problem(MainMathClass.OperationType.DIV_1DIG);
             assertInRange(mathProblem.operands.get(1), 1, 10);
             assertInRange(mathProblem.result.get(0), 1, 10);
+            assertGenericDiv(mathProblem);
+
+            mathProblem = mainMathClass.generate_math_problem(MainMathClass.OperationType.DIV_1DIG_2DIG_ROUND);
+            assertInRange(mathProblem.operands.get(1), 1, 10);
+            assertInRange(mathProblem.result.get(0), 10, 100);
             assertGenericDiv(mathProblem);
 
             mathProblem = mainMathClass.generate_math_problem(MainMathClass.OperationType.DIV_1DIGxUNDER20);

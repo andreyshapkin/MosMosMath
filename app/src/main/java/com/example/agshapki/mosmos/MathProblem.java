@@ -17,7 +17,7 @@ public class MathProblem {
         if (userAnswer.size() == 0) {
             return false;
         }
-        if (result.get(0) == userAnswer.get(0)) {
+        if (result.get(0).equals(userAnswer.get(0))) {
             return true;
         }
         return false;

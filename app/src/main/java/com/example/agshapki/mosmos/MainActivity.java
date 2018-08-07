@@ -10,11 +10,9 @@ import java.util.List;
 
 public class MainActivity extends Activity {
 
-    MainMathClass mainMathClass;
     MathProblemVisualizer mathProblemVisualizer;
     MainActivity() {
-        mainMathClass = new MainMathClass();
-        mathProblemVisualizer = new MathProblemVisualizer(mainMathClass);
+        mathProblemVisualizer = new MathProblemVisualizer();
     }
 
     TextView textViewDescription;

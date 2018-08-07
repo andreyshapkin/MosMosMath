@@ -10,7 +10,7 @@ public class MathProblemVisualizer {
 
     String popMessage = "";
 
-    MathProblemVisualizer(MainMathClass mainMathClass) {
+    MathProblemVisualizer() {
 
         for (int i=0; i<5; i++) {
             contentList.add("");
@@ -32,11 +32,19 @@ public class MathProblemVisualizer {
     }
 
     public void visualizeMathProblem() {
-        MathProblem problem = mainMathClass.currentMathProblem;
-        description = "Solve this add problem";
+        visualizeMathProblem(mainMathClass.currentMathProblem);
+    }
+
+    public void visualizeMathProblem(MathProblem problem) {
+        description = "Solve this math problem! " + problem.operationType.toString() + " " + String.valueOf(problem.result.get(0));
+        if (problem.userAnswer.size()>0) {
+            description += " " + String.valueOf(problem.userAnswer.get(0));
+        }
+
+        String operationTypeChar = getOperationTypeString(problem.operationType);
 
         contentList.set(0,String.valueOf(problem.operands.get(0)));
-        contentList.set(1,"+");
+        contentList.set(1,operationTypeChar);
         contentList.set(2,String.valueOf(problem.operands.get(1)));
         contentList.set(3,"=");
 
@@ -45,6 +53,24 @@ public class MathProblemVisualizer {
             userAnswerText = String.valueOf(problem.userAnswer.get(0));
         }
         contentList.set(4,userAnswerText);
+    }
+
+    public String getOperationTypeString(MainMathClass.OperationType operationType) {
+        String operationTypeString = operationType.toString();
+
+        if (operationTypeString.startsWith("ADD")) {
+            return "+";
+        }
+        if (operationTypeString.startsWith("SUB")) {
+            return "-";
+        }
+        if (operationTypeString.startsWith("MULT")) {
+            return "*";
+        }
+        if (operationTypeString.startsWith("DIV")) {
+            return "/";
+        }
+        return "ERROR";
     }
 
     public void startNewProblem() {
