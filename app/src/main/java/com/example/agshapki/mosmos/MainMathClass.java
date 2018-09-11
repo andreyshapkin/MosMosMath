@@ -32,6 +32,8 @@ public class MainMathClass {
         DIV_1DIG_2DIG_ROUND,
         DIV_1DIGxUNDER20,
         DIV_1DIGxUNDER30;
+
+//        FRACT_ADD_SAME_DEN;
     }
 
     public class Stats {
@@ -154,11 +156,11 @@ public class MainMathClass {
             generate_mult_generic(mathProblem, op1, op2);
         } else if (operationType == OperationType.MULT_1DIGxUNDER20) {
             int op1 = random.nextInt(9) + 2;
-            int op2 = random.nextInt(19) + 2;
+            int op2 = random.nextInt(10) + 11;
             generate_mult_generic(mathProblem, op1, op2);
         } else if (operationType == OperationType.MULT_1DIGxUNDER30) {
             int op1 = random.nextInt(9) + 2;
-            int op2 = random.nextInt(29) + 2;
+            int op2 = random.nextInt(10) + 21;
             generate_mult_generic(mathProblem, op1, op2);
 
 
@@ -172,13 +174,23 @@ public class MainMathClass {
             generate_div_generic(mathProblem, op2, result);
         } else if (operationType == OperationType.DIV_1DIGxUNDER20) {
             int op2 = random.nextInt(9) + 2;
-            int result = random.nextInt(19) + 2;
+            int result = random.nextInt(10) + 11;
             generate_div_generic(mathProblem, op2, result);
         } else if (operationType == OperationType.DIV_1DIGxUNDER30) {
             int op2 = random.nextInt(9) + 2;
-            int result = random.nextInt(29) + 2;
+            int result = random.nextInt(10) + 21;
             generate_div_generic(mathProblem, op2, result);
+
+
+//        } else if (operationType == OperationType.FRACT_ADD_SAME_DEN) {
+//            int op0 = 0;
+//            int op1 = random.nextInt(9) + 1;
+//            int op2 = random.nextInt(op1) + 1;
+//            int result = random.nextInt(9) + 2;
+//            generate_div_generic(mathProblem, op2, result);
         }
+
+
 
         return mathProblem;
     }

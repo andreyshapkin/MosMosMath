@@ -1,7 +1,10 @@
 package com.example.agshapki.mosmos;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,24 +20,42 @@ public class MainActivity extends Activity {
 
     TextView textViewDescription;
     TextView textViewStats;
-    List<TextView> mathProblemTextViewList = new ArrayList<TextView>();
+
+    FragmentNumPad fragmentNumpad;
+    FragmentMathSimple fragmentMathSimple;
+
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        popMessage("main activity has started");
+        Log.d(TAG, "onCreate: main activity started");
 
         textViewDescription = (TextView) findViewById(R.id.textViewDescription);
         textViewStats = (TextView) findViewById(R.id.textViewStats);
 
-        mathProblemTextViewList.add((TextView) findViewById(R.id.textViewProblem0));
-        mathProblemTextViewList.add((TextView) findViewById(R.id.textViewProblem1));
-        mathProblemTextViewList.add((TextView) findViewById(R.id.textViewProblem2));
-        mathProblemTextViewList.add((TextView) findViewById(R.id.textViewProblem3));
-        mathProblemTextViewList.add((TextView) findViewById(R.id.textViewProblem4));
+        Log.d(TAG, "onCreate: getting fragment transaction");
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
+        Log.d(TAG, "onCreate: loading math problem frame");
+
+        fragmentMathSimple = new FragmentMathSimple();
+        fragmentMathSimple.mathProblemVisualizer = mathProblemVisualizer;
+        fragmentTransaction.add(R.id.mathProblemFrame, fragmentMathSimple);
+
+        Log.d(TAG, "onCreate: loading numPad frame");
+
+        fragmentNumpad = new FragmentNumPad();
+        fragmentNumpad.mainActivity = this;
+        fragmentTransaction.add(R.id.numPadFrame, fragmentNumpad);
+
+        Log.d(TAG, "onCreate: committing frames");
+
+        fragmentTransaction.commit();
+
+        Log.d(TAG, "onCreate: updating gui with task");
         updateGui();
     }
 
@@ -42,53 +63,16 @@ public class MainActivity extends Activity {
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
-    public void NumPadClick(android.view.View view) {
-        //popMessage("NumPad clicked");
-        Integer number = -1;
-        boolean enter = false;
-        boolean cancel = false;
-        switch (view.getId()) {
-            case R.id.buttonNumPad0: number = 0; break;
-            case R.id.buttonNumPad1: number = 1; break;
-            case R.id.buttonNumPad2: number = 2; break;
-            case R.id.buttonNumPad3: number = 3; break;
-            case R.id.buttonNumPad4: number = 4; break;
-            case R.id.buttonNumPad5: number = 5; break;
-            case R.id.buttonNumPad6: number = 6; break;
-            case R.id.buttonNumPad7: number = 7; break;
-            case R.id.buttonNumPad8: number = 8; break;
-            case R.id.buttonNumPad9: number = 9; break;
-            case R.id.buttonNumPadEnter: enter = true; break;
-            case R.id.buttonNumPadCancel: cancel = true; break;
-            default:
-                popMessage("ERROR: NumPadClick: no handler for button");
-        }
+    public void updateGui() {
+        Log.d(TAG, "updateGui");
 
-        if (number>=0) {
-            mathProblemVisualizer.HandleNumPad(number);
-            updateGui();
-        }
-        if (cancel) {
-            mathProblemVisualizer.HandleCancelButton();
-            updateGui();
-        }
-        if (enter) {
-            mathProblemVisualizer.HandleEnterButton();
-            updateGui();
-        }
-    }
-
-
-    private void updateGui() {
         textViewStats.setText(mathProblemVisualizer.visualizeStats());
 
         mathProblemVisualizer.visualizeMathProblem();
 
         textViewDescription.setText(mathProblemVisualizer.description);
 
-        for (int i=0;i<mathProblemTextViewList.size();i++) {
-            mathProblemTextViewList.get(i).setText(mathProblemVisualizer.contentList.get(i));
-        }
+        fragmentMathSimple.updateGui();
 
         String popMessageStr = mathProblemVisualizer.visualizePopMessage();
         if (!popMessageStr.isEmpty()){

@@ -119,12 +119,12 @@ public class MainMathClassTest {
 
             mathProblem = mainMathClass.generate_math_problem(MainMathClass.OperationType.MULT_1DIGxUNDER20);
             assertInRange(mathProblem.operands.get(0), 1, 10);
-            assertInRange(mathProblem.operands.get(1), 1, 20);
+            assertInRange(mathProblem.operands.get(1), 11, 20);
             assertGenericMult(mathProblem);
 
             mathProblem = mainMathClass.generate_math_problem(MainMathClass.OperationType.MULT_1DIGxUNDER30);
             assertInRange(mathProblem.operands.get(0), 1, 10);
-            assertInRange(mathProblem.operands.get(1), 1, 30);
+            assertInRange(mathProblem.operands.get(1), 21, 30);
             assertGenericMult(mathProblem);
         }
     }
@@ -144,12 +144,12 @@ public class MainMathClassTest {
 
             mathProblem = mainMathClass.generate_math_problem(MainMathClass.OperationType.DIV_1DIGxUNDER20);
             assertInRange(mathProblem.operands.get(1), 1, 10);
-            assertInRange(mathProblem.result.get(0), 1, 20);
+            assertInRange(mathProblem.result.get(0), 11, 20);
             assertGenericDiv(mathProblem);
 
             mathProblem = mainMathClass.generate_math_problem(MainMathClass.OperationType.DIV_1DIGxUNDER30);
             assertInRange(mathProblem.operands.get(1), 1, 10);
-            assertInRange(mathProblem.result.get(0), 1, 30);
+            assertInRange(mathProblem.result.get(0), 21, 30);
             assertGenericDiv(mathProblem);
         }
     }

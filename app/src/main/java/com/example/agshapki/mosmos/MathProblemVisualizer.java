@@ -36,7 +36,7 @@ public class MathProblemVisualizer {
     }
 
     public void visualizeMathProblem(MathProblem problem) {
-        description = "Solve this math problem! " + problem.operationType.toString() + " " + String.valueOf(problem.result.get(0));
+        description = "Solve this math problem! "; // + problem.operationType.toString() + " " + String.valueOf(problem.result.get(0));
         if (problem.userAnswer.size()>0) {
             description += " " + String.valueOf(problem.userAnswer.get(0));
         }
@@ -89,8 +89,7 @@ public class MathProblemVisualizer {
     }
 
     public void HandleEnterButton() {
-        boolean userCorrect = mainMathClass.checkResult();
-        if (userCorrect) {
+        if (mainMathClass.checkResult()) {
             popMessage = "Good Job!!!";
             startNewProblem();
         } else {
