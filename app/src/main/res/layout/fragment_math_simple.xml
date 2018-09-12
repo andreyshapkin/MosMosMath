@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="20"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="A" />
 
         <TextView
             android:id="@+id/textViewProblem1"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="20"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="Op" />
 
         <TextView
             android:id="@+id/textViewProblem2"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="20"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="B" />
 
         <TextView
             android:id="@+id/textViewProblem3"
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="20"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="=" />
 
         <TextView
             android:id="@+id/textViewProblem4"
@@ -60,6 +60,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="20"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="R" />
     </LinearLayout>
 </FrameLayout>
