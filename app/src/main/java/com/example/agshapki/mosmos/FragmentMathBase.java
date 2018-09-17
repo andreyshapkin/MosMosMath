@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentMathBase extends Fragment {
+abstract public class FragmentMathBase extends Fragment {
 
 //    public MathProblemVisualizer mathProblemVisualizer;
     public int fragment_layout_id = -1;
@@ -31,9 +31,7 @@ public class FragmentMathBase extends Fragment {
     }
 
     // virtual function
-    public void initFragment() {
-        throw new AssertionError("fragment is not initialized " + this);
-    }
+    public abstract void initFragment();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
