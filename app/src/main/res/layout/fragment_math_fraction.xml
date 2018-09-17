@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="A0" />
+            android:text="A0"
+            android:textSize="30sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -33,21 +34,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="A1" />
+                android:text="A1"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/mathFractionTextDash0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="-------" />
+                android:text="-------"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/mathFractionText2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="A2" />
+                android:text="A2"
+                android:textSize="30sp" />
         </LinearLayout>
 
         <TextView
@@ -56,7 +60,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Op" />
+            android:text="Op"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/mathFractionText4"
@@ -64,7 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="B0" />
+            android:text="B0"
+            android:textSize="30sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -78,21 +84,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="B1" />
+                android:text="B1"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/mathFractionTextUnder1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="-------" />
+                android:text="-------"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/mathFractionText6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="B2" />
+                android:text="B2"
+                android:textSize="30sp" />
 
         </LinearLayout>
 
@@ -102,7 +111,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="=" />
+            android:text="="
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/mathFractionText7"
@@ -110,7 +120,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="R0" />
+            android:text="R0"
+            android:textSize="30sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -124,21 +135,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="R1" />
+                android:text="R1"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/mathFractionTextUnder2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="-------" />
+                android:text="-------"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/mathFractionText9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="R2" />
+                android:text="R2"
+                android:textSize="30sp" />
 
         </LinearLayout>
     </LinearLayout>

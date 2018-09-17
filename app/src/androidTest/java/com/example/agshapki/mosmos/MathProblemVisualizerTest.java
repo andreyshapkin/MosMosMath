@@ -19,16 +19,16 @@ public class MathProblemVisualizerTest {
 
     @Test
     public void getOperationTypeString() {
-        assertEquals("+",vis.getOperationTypeString(MainMathClass.OperationType.ADD_2DIG_ROUND_2DIG));
-        assertEquals("-",vis.getOperationTypeString(MainMathClass.OperationType.SUB_2DIG_1DIG_DONT_CROSS));
-        assertEquals("*",vis.getOperationTypeString(MainMathClass.OperationType.MULT_1DIGxUNDER20));
-        assertEquals("/",vis.getOperationTypeString(MainMathClass.OperationType.DIV_1DIGxUNDER30));
+        assertEquals("+",vis.getOperationTypeString(MathGenerator.OperationType.ADD_2DIG_ROUND_2DIG));
+        assertEquals("-",vis.getOperationTypeString(MathGenerator.OperationType.SUB_2DIG_1DIG_DONT_CROSS));
+        assertEquals("*",vis.getOperationTypeString(MathGenerator.OperationType.MULT_1DIGxUNDER20));
+        assertEquals("/",vis.getOperationTypeString(MathGenerator.OperationType.DIV_1DIGxUNDER30));
     }
 
     @Test
     public void visualizeMathProblem() {
         MathProblem mathProblem = new MathProblem();
-        mathProblem.operationType = MainMathClass.OperationType.ADD_1DIG;
+        mathProblem.operationType = MathGenerator.OperationType.ADD_1DIG;
         mathProblem.operands.add(1);
         mathProblem.operands.add(2);
         mathProblem.result.add(3);
@@ -47,7 +47,7 @@ public class MathProblemVisualizerTest {
         assertEquals("5", vis.contentList.get(4));
 
         mathProblem = new MathProblem();
-        mathProblem.operationType = MainMathClass.OperationType.MULT_1DIG;
+        mathProblem.operationType = MathGenerator.OperationType.MULT_1DIG;
         mathProblem.operands.add(2);
         mathProblem.operands.add(3);
         mathProblem.result.add(6);
@@ -62,7 +62,7 @@ public class MathProblemVisualizerTest {
     @Test
     public void HandleEnterButton() {
         MathProblem mathProblem = new MathProblem();
-        mathProblem.operationType = MainMathClass.OperationType.MULT_1DIG;
+        mathProblem.operationType = MathGenerator.OperationType.MULT_1DIG;
         mathProblem.operands.add(2);
         mathProblem.operands.add(3);
         mathProblem.result.add(6);

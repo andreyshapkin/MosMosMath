@@ -42,6 +42,7 @@ public class FragmentNumPad extends Fragment implements View.OnClickListener {
         ((Button) view.findViewById(R.id.buttonNumPad9)).setOnClickListener(this);
         ((Button) view.findViewById(R.id.buttonNumPadEnter)).setOnClickListener(this);
         ((Button) view.findViewById(R.id.buttonNumPadCancel)).setOnClickListener(this);
+        ((Button) view.findViewById(R.id.buttonNumPadNext)).setOnClickListener(this);
 
         return view;
     }
@@ -58,6 +59,7 @@ public class FragmentNumPad extends Fragment implements View.OnClickListener {
         Integer number = -1;
         boolean enter = false;
         boolean cancel = false;
+        boolean next = false;
         switch (view.getId()) {
             case R.id.buttonNumPad0: number = 0; break;
             case R.id.buttonNumPad1: number = 1; break;
@@ -71,23 +73,34 @@ public class FragmentNumPad extends Fragment implements View.OnClickListener {
             case R.id.buttonNumPad9: number = 9; break;
             case R.id.buttonNumPadEnter: enter = true; break;
             case R.id.buttonNumPadCancel: cancel = true; break;
+            case R.id.buttonNumPadNext: next = true; break;
             default:
                 popMessage("ERROR: NumPadClick: no handler for button");
         }
         Log.d(TAG, "onClick: NumPad pressed number=" + String.valueOf(number)
                 + " enter=" + String.valueOf(enter)
-                + " cancel=" + String.valueOf(cancel));
+                + " cancel=" + String.valueOf(cancel)
+                + " next=" + String.valueOf(next)
+        );
 
         if (number>=0) {
+            Log.d(TAG, "onClick: numpad" + String.valueOf(number));
             mainActivity.mathProblemVisualizer.HandleNumPad(number);
             mainActivity.updateGui();
         }
         if (cancel) {
+            Log.d(TAG, "onClick: cancel button");
             mainActivity.mathProblemVisualizer.HandleCancelButton();
             mainActivity.updateGui();
         }
         if (enter) {
+            Log.d(TAG, "onClick: enter button");
             mainActivity.mathProblemVisualizer.HandleEnterButton();
+            mainActivity.updateGui();
+        }
+        if (next) {
+            Log.d(TAG, "onClick: next button");
+            mainActivity.mathProblemVisualizer.HandleNextButton();
             mainActivity.updateGui();
         }
     }

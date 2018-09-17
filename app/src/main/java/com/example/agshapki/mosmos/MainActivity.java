@@ -9,22 +9,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends Activity {
 
-    MathProblemVisualizer mathProblemVisualizer;
-    MainActivity() {
-        mathProblemVisualizer = new MathProblemVisualizer();
-    }
+    private static final String TAG = "MainActivity";
 
+    MathProblemVisualizer mathProblemVisualizer =  new MathProblemVisualizer();
+
+    // widgets of them main activity
     TextView textViewDescription;
     TextView textViewStats;
 
-    FragmentNumPad fragmentNumpad;
-    FragmentMathSimple fragmentMathSimple;
+    Map<MathProblemVisualizer.GuiViewType,FragmentMathBase> fragmentMap = new HashMap<>();
 
-    private static final String TAG = "MainActivity";
+    MainActivity() {
+        Log.d(TAG, "MainActivity: started");
+        fragmentMap.put(MathProblemVisualizer.GuiViewType.SIMPLE,new FragmentMathSimple());
+        fragmentMap.put(MathProblemVisualizer.GuiViewType.FRACTION,new FragmentMathFraction());
+        fragmentMap.put(MathProblemVisualizer.GuiViewType.LCM, new FragmentMathLCM());
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,22 +43,15 @@ public class MainActivity extends Activity {
         textViewDescription = (TextView) findViewById(R.id.textViewDescription);
         textViewStats = (TextView) findViewById(R.id.textViewStats);
 
-        Log.d(TAG, "onCreate: getting fragment transaction");
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
-        Log.d(TAG, "onCreate: loading math problem frame");
-
-        fragmentMathSimple = new FragmentMathSimple();
-        fragmentMathSimple.mathProblemVisualizer = mathProblemVisualizer;
-        fragmentTransaction.add(R.id.mathProblemFrame, fragmentMathSimple);
+        // starting with empty fragment to avoid initialization issues
+        fragmentTransaction.add(R.id.mathProblemFrame, new FragmentEmpty());
 
         Log.d(TAG, "onCreate: loading numPad frame");
-
-        fragmentNumpad = new FragmentNumPad();
+        FragmentNumPad fragmentNumpad = new FragmentNumPad();
         fragmentNumpad.mainActivity = this;
         fragmentTransaction.add(R.id.numPadFrame, fragmentNumpad);
-
-        Log.d(TAG, "onCreate: committing frames");
 
         fragmentTransaction.commit();
 
@@ -72,7 +72,14 @@ public class MainActivity extends Activity {
 
         textViewDescription.setText(mathProblemVisualizer.description);
 
-        fragmentMathSimple.updateGui();
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+
+        // FIXME - remove this dependency
+        Log.d(TAG, "updateGui: loading fragment " + mathProblemVisualizer.guiViewType.toString());
+        FragmentMathBase fragment = fragmentMap.get(mathProblemVisualizer.guiViewType);
+        fragment.updateGui();
+        fragmentTransaction.replace(R.id.mathProblemFrame, fragment);
+        fragmentTransaction.commit();
 
         String popMessageStr = mathProblemVisualizer.visualizePopMessage();
         if (!popMessageStr.isEmpty()){
