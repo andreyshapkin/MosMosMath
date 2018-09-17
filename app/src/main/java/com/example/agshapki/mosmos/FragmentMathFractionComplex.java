@@ -8,13 +8,13 @@ import android.util.Log;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentMathFraction extends FragmentMathBase {
-    private static final String TAG = "FragmentMathFraction";
+public class FragmentMathFractionComplex extends FragmentMathBase {
+    private static final String TAG = "FragmentMathFractionComplex";
 
-    public FragmentMathFraction() {
-        Log.d(TAG, "FragmentMathFraction: constructor");
+    public FragmentMathFractionComplex() {
+        Log.d(TAG, "FragmentMathFractionComplex: constructor");
 
-        fragment_layout_id = R.layout.fragment_math_fraction;
+        fragment_layout_id = R.layout.fragment_math_fraction_complex;
 
         widgetIDs.add(R.id.mathFractionText0);
         widgetIDs.add(R.id.mathFractionText1);

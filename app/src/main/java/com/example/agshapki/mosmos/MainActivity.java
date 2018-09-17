@@ -1,16 +1,13 @@
 package com.example.agshapki.mosmos;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends Activity {
@@ -24,11 +21,14 @@ public class MainActivity extends Activity {
     TextView textViewStats;
 
     Map<MathProblemVisualizer.GuiViewType,FragmentMathBase> fragmentMap = new HashMap<>();
+    FragmentMathBase activeFragment;
 
     MainActivity() {
         Log.d(TAG, "MainActivity: started");
         fragmentMap.put(MathProblemVisualizer.GuiViewType.SIMPLE,new FragmentMathSimple());
-        fragmentMap.put(MathProblemVisualizer.GuiViewType.FRACTION,new FragmentMathFraction());
+        fragmentMap.put(MathProblemVisualizer.GuiViewType.FRACTION_EXTRACT_WHOLE,new FragmentMathFractionExtractWhole());
+        fragmentMap.put(MathProblemVisualizer.GuiViewType.FRACTION_SIMPLE,new FragmentMathFractionSimple());
+        fragmentMap.put(MathProblemVisualizer.GuiViewType.FRACTION,new FragmentMathFractionComplex());
         fragmentMap.put(MathProblemVisualizer.GuiViewType.LCM, new FragmentMathLCM());
     }
 
@@ -80,7 +80,22 @@ public class MainActivity extends Activity {
         fragment.updateGui();
         fragmentTransaction.replace(R.id.mathProblemFrame, fragment);
         fragmentTransaction.commit();
+        activeFragment = fragment;
 
+        showPopMessage();
+    }
+
+    // for performance, only to re-draw
+    public void updateResultsGui() {
+        Log.d(TAG, "updateResultsGui");
+
+        mathProblemVisualizer.visualizeMathProblem();
+        activeFragment.updateGui();
+
+        showPopMessage();
+    }
+
+    private void showPopMessage() {
         String popMessageStr = mathProblemVisualizer.visualizePopMessage();
         if (!popMessageStr.isEmpty()){
             popMessage(popMessageStr);

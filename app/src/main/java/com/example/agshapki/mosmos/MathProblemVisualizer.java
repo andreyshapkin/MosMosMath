@@ -20,6 +20,8 @@ public class MathProblemVisualizer {
         INVALID,
         SIMPLE,
         LCM,
+        FRACTION_EXTRACT_WHOLE,
+        FRACTION_SIMPLE,
         FRACTION;
     }
 
@@ -69,8 +71,13 @@ public class MathProblemVisualizer {
     public void visualizeMathProblem(MathProblem problem) {
         Log.d(TAG, "visualizeMathProblem: visualizing " + problem.toString());
 
+        contentList.clear();
         // FIXME - find a better way
-        if (problem.operationType.toString().startsWith("FRACT")) {
+        if (problem.operationType.toString().startsWith("FRACT_EXTRACT")) {
+            visualizeMathFractionExtractWhole(problem);
+        } else if (problem.operationType.toString().startsWith("FRACT_SIMPLE")) {
+            visualizeMathFractionSimple(problem);
+        } else if (problem.operationType.toString().startsWith("FRACT")) {
             visualizeMathFraction(problem);
         } else if (problem.operationType.toString().startsWith("LCM")) {
             visualizeLCM(problem);
@@ -99,8 +106,6 @@ public class MathProblemVisualizer {
 
         description = "Solve this math problem! "; // + problem.operationType.toString() + " " + String.valueOf(problem.result.get(0));
 
-        contentList.clear();
-
         contentList.add(String.valueOf(problem.operands.get(0)));
         contentList.add(getOperationTypeString(problem.operationType));
         contentList.add(String.valueOf(problem.operands.get(1)));
@@ -113,18 +118,61 @@ public class MathProblemVisualizer {
         }
     }
 
+    private void visualizeMathFractionExtractWhole(MathProblem problem) {
+        Log.d(TAG, "visualizeMathFractionExtractWhole: ");
+        guiViewType = GuiViewType.FRACTION_EXTRACT_WHOLE;
+
+        description = "Extract Whole number, do not simplify fraction! ";
+        contentList.add(String.valueOf(problem.operands.get(0)));
+        contentList.add(String.valueOf(problem.operands.get(1)));
+
+        for (int i=0;i<3;i++) {
+            if (i < problem.userAnswer.size()) {
+                contentList.add(String.valueOf(problem.userAnswer.get(i)));
+            } else {
+                contentList.add("?");
+            }
+        }
+
+        colorText = 1 << (2 + problem.userAnswerIndex);
+        highlightText = 0x7 << 2;
+
+    }
+
+    private void visualizeMathFractionSimple(MathProblem problem) {
+        Log.d(TAG, "visualizeMathFractionSimple: ");
+        guiViewType = GuiViewType.FRACTION_SIMPLE;
+
+        description = "Solve it, do not simplify fraction! ";
+        contentList.add(String.valueOf(problem.operands.get(0)));
+        contentList.add(String.valueOf(problem.operands.get(1)));
+        contentList.add(getOperationTypeString(problem.operationType));
+        contentList.add(String.valueOf(problem.operands.get(2)));
+        contentList.add(String.valueOf(problem.operands.get(3)));
+
+        for (int i=0;i<2;i++) {
+            if (i < problem.userAnswer.size()) {
+                contentList.add(String.valueOf(problem.userAnswer.get(i)));
+            } else {
+                contentList.add("?");
+            }
+        }
+
+        colorText = 1 << (5 + problem.userAnswerIndex);
+        highlightText = 0x3 << 5;
+
+    }
+
     private void visualizeMathFraction(MathProblem problem) {
         Log.d(TAG, "visualizeMathFraction: ");
         guiViewType = GuiViewType.FRACTION;
 
         description = "Solve this math problem! "; // + problem.operationType.toString() + " " + String.valueOf(problem.result.get(0));
 
-        contentList.clear();
-
         contentList.add(String.valueOf(problem.operands.get(0)));
         contentList.add(String.valueOf(problem.operands.get(1)));
         contentList.add(String.valueOf(problem.operands.get(2)));
-        contentList.add("+");
+        contentList.add(getOperationTypeString(problem.operationType));
         contentList.add(String.valueOf(problem.operands.get(3)));
         contentList.add(String.valueOf(problem.operands.get(4)));
         contentList.add(String.valueOf(problem.operands.get(5)));
@@ -148,7 +196,6 @@ public class MathProblemVisualizer {
 
         description = "Find LCM of the numbers";
 
-        contentList.clear();
         contentList.add(String.valueOf(problem.operands.get(0)));
         contentList.add(String.valueOf(problem.operands.get(1)));
         if (problem.operands.size()>2) {
@@ -166,16 +213,16 @@ public class MathProblemVisualizer {
     public String getOperationTypeString(MathGenerator.OperationType operationType) {
         String operationTypeString = operationType.toString();
 
-        if (operationTypeString.startsWith("ADD")) {
+        if (operationTypeString.contains("ADD")) {
             return "+";
         }
-        if (operationTypeString.startsWith("SUB")) {
+        if (operationTypeString.contains("SUB")) {
             return "-";
         }
-        if (operationTypeString.startsWith("MULT")) {
+        if (operationTypeString.contains("MULT")) {
             return "*";
         }
-        if (operationTypeString.startsWith("DIV")) {
+        if (operationTypeString.contains("DIV")) {
             return "/";
         }
         return "ERROR";

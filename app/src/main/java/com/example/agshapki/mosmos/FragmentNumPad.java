@@ -86,21 +86,21 @@ public class FragmentNumPad extends Fragment implements View.OnClickListener {
         if (number>=0) {
             Log.d(TAG, "onClick: numpad" + String.valueOf(number));
             mainActivity.mathProblemVisualizer.HandleNumPad(number);
-            mainActivity.updateGui();
+            mainActivity.updateResultsGui();
         }
         if (cancel) {
             Log.d(TAG, "onClick: cancel button");
             mainActivity.mathProblemVisualizer.HandleCancelButton();
-            mainActivity.updateGui();
-        }
-        if (enter) {
-            Log.d(TAG, "onClick: enter button");
-            mainActivity.mathProblemVisualizer.HandleEnterButton();
-            mainActivity.updateGui();
+            mainActivity.updateResultsGui();
         }
         if (next) {
             Log.d(TAG, "onClick: next button");
             mainActivity.mathProblemVisualizer.HandleNextButton();
+            mainActivity.updateResultsGui();
+        }
+        if (enter) {
+            Log.d(TAG, "onClick: enter button");
+            mainActivity.mathProblemVisualizer.HandleEnterButton();
             mainActivity.updateGui();
         }
     }

@@ -8,7 +8,6 @@ import java.util.Random;
 class MathGenerator {
 
     public enum OperationType {
-        INVALID,
         ADD_SUM_UNDER10,
         ADD_1DIG,
         ADD_SUM_UNDER100,
@@ -37,7 +36,15 @@ class MathGenerator {
         LCM_2DIG,
         LCM_3DIG,
 
-        FRACT_ADD_SAME_DEN;
+        FRACT_EXTRACT_WHOLE,
+
+        FRACT_SIMPLE_ADD_SAME_DEN,
+        FRACT_SIMPLE_SUB_SAME_DEN,
+
+        FRACT_ADD_SAME_DEN,
+        FRACT_SUB_SAME_DEN,
+
+        INVALID;
     }
 
     private static final String TAG = "MathGenerator";
@@ -47,15 +54,18 @@ class MathGenerator {
 
 
     public MathGenerator() {
-        for (OperationType type : OperationType.values()) {
-            if (type != OperationType.INVALID) {
-                listOfPossibleOpTypes.add(type);
-            }
-        }
+//        for (OperationType type : OperationType.values()) {
+//            if (type != OperationType.INVALID) {
+//                listOfPossibleOpTypes.add(type);
+//            }
+//        }
         //listOfPossibleOpTypes.add(OperationType.ADD_1DIG);
         //listOfPossibleOpTypes.add(OperationType.LCM_3DIG);
+        //listOfPossibleOpTypes.add(OperationType.FRACT_EXTRACT_WHOLE);
+        //listOfPossibleOpTypes.add(OperationType.FRACT_SIMPLE_ADD_SAME_DEN);
+        //listOfPossibleOpTypes.add(OperationType.FRACT_SIMPLE_SUB_SAME_DEN);
         //listOfPossibleOpTypes.add(OperationType.FRACT_ADD_SAME_DEN);
-
+        listOfPossibleOpTypes.add(OperationType.FRACT_SUB_SAME_DEN);
     }
 
     MathProblem generate() {
@@ -174,19 +184,69 @@ class MathGenerator {
             mathProblem.result.add(result);
 
 
-        } else if (operationType == OperationType.FRACT_ADD_SAME_DEN) {
+        } else if (operationType == OperationType.FRACT_EXTRACT_WHOLE) {
+            int RWhole = random.nextInt(10) + 1;
+            int Aden = random.nextInt(9) + 2;
+            int Rnum = random.nextInt(Aden - 1) + 1;
+            int Anum = RWhole * Aden + Rnum;
+
+            mathProblem.operands.add(Anum);
+            mathProblem.operands.add(Aden);
+            mathProblem.result.add(RWhole);
+            mathProblem.result.add(Rnum);
+            mathProblem.result.add(Aden);
+
+        } else if (operationType == OperationType.FRACT_SIMPLE_ADD_SAME_DEN) {
             int den = random.nextInt(18) + 3;
-            int Ah = 0;
             int An = random.nextInt(den - 2) + 1;
             int Ad = den;
-            int Bh = 0;
             int Bn = random.nextInt(20 - An) + 1;
             int Bd = den;
-            int Rh = 0;
+            int Rn = An + Bn;
+            int Rd = den;
+
+            generateFractionSimpleProblem(mathProblem, An, Ad, Bn, Bd, Rn, Rd);
+        } else if (operationType == OperationType.FRACT_SIMPLE_SUB_SAME_DEN) {
+            int den = random.nextInt(18) + 3;
+            int An = random.nextInt(den - 1) + 1;
+            int Ad = den;
+            int Bn = random.nextInt(An - 1 ) + 1;
+            int Bd = den;
+            int Rn = An - Bn;
+            int Rd = den;
+
+            generateFractionSimpleProblem(mathProblem, An, Ad, Bn, Bd, Rn, Rd);
+
+
+        } else if (operationType == OperationType.FRACT_ADD_SAME_DEN) {
+            int den = random.nextInt(18) + 3;
+            int Ah = random.nextInt(10) + 1;
+            int An = random.nextInt(den - 2) + 1;
+            int Ad = den;
+            int Bh = random.nextInt(10) + 1;
+            int Bn = random.nextInt(den - An - 1) + 1;
+            int Bd = den;
+            int Rh = Ah + Bh;
             int Rn = An + Bn;
             int Rd = den;
 
             generateFractionProblem(mathProblem, Ah, An, Ad, Bh, Bn, Bd, Rh, Rn, Rd);
+        } else if (operationType == OperationType.FRACT_SUB_SAME_DEN) {
+            int den = random.nextInt(16) + 5;
+            int Ah = random.nextInt(16) + 5;
+            int An = random.nextInt(den - 3) + 2;
+            int Ad = den;
+            int Bh = random.nextInt(Ah - 1) + 1;
+            int Bn = random.nextInt(An - 1) + 1;
+            int Bd = den;
+            int Rh = Ah - Bh;
+            int Rn = An - Bn;
+            int Rd = den;
+
+            generateFractionProblem(mathProblem, Ah, An, Ad, Bh, Bn, Bd, Rh, Rn, Rd);
+
+        } else {
+            throw new AssertionError("unknown type to generate " + operationType.toString());
         }
 
         return mathProblem;
@@ -236,6 +296,15 @@ class MathGenerator {
         mathProblem.operands.add(op1);
         mathProblem.operands.add(op2);
         mathProblem.result.add(result);
+    }
+
+    private void generateFractionSimpleProblem(MathProblem mathProblem, int an, int ad, int bn, int bd, int rn, int rd) {
+        mathProblem.operands.add(an);
+        mathProblem.operands.add(ad);
+        mathProblem.operands.add(bn);
+        mathProblem.operands.add(bd);
+        mathProblem.result.add(rn);
+        mathProblem.result.add(rd);
     }
 
     private void generateFractionProblem(MathProblem mathProblem, int ah, int an, int ad, int bh, int bn, int bd, int rh, int rn, int rd) {

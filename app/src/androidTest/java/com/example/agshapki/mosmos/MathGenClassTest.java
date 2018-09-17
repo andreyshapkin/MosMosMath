@@ -1,5 +1,7 @@
 package com.example.agshapki.mosmos;
 
+import android.util.Log;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -154,16 +156,6 @@ public class MathGenClassTest {
         }
     }
 
-    @Test
-    public void generateFractionProblem() {
-        for (int i = 0; i < 100; i++) {
-            MathProblem mathProblem = mathGenerator.generate_math_problem(MathGenerator.OperationType.FRACT_ADD_SAME_DEN);
-            assertEquals(mathProblem.operands.get(0), Integer.valueOf(0));
-            assertInRange(mathProblem.operands.get(1), 1, 20);
-            assertInRange(mathProblem.operands.get(2), 1, 20);
-        }
-    }
-
     private void assertGenericDiv(MathProblem mathProblem) {
         assertTrue(mathProblem.operands.size() == 2);
         assertTrue(mathProblem.result.size() == 1);
@@ -210,5 +202,25 @@ public class MathGenClassTest {
         assertEquals(12, mathGenerator.getLCM(2, 3, 4));
         assertEquals(12, mathGenerator.getLCM(6, 3, 4));
         assertEquals(30, mathGenerator.getLCM(2, 3, 5));
+    }
+
+    @Test
+    public void testFractionAdd() {
+        for (int i = 0; i < 100; i++) {
+            MathProblem mathProblem = mathGenerator.generate_math_problem(MathGenerator.OperationType.FRACT_ADD_SAME_DEN);
+            assertInRange(mathProblem.operands.get(1), 1, 20);
+            assertInRange(mathProblem.operands.get(2), 1, 20);
+            assertInRange(mathProblem.result.get(1), 1, mathProblem.result.get(2) - 1);
+        }
+    }
+
+    @Test
+    public void testFractionSub() {
+        for (int i = 0; i < 100; i++) {
+            MathProblem mathProblem = mathGenerator.generate_math_problem(MathGenerator.OperationType.FRACT_SUB_SAME_DEN);
+            assertInRange(mathProblem.operands.get(1), 1, 20);
+            assertInRange(mathProblem.operands.get(2), 1, 20);
+            assertInRange(mathProblem.result.get(1), 1, mathProblem.result.get(2) - 1);
+        }
     }
 }
