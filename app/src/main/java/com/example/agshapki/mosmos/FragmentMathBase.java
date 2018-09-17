@@ -30,11 +30,18 @@ public class FragmentMathBase extends Fragment {
         // Required empty public constructor
     }
 
+    // virtual function
+    public void initFragment() {
+        throw new AssertionError("fragment is not initialized " + this);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         Log.d(TAG, "onCreateView: creating fraction fragment");
+
+        initFragment();
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(fragment_layout_id, container, false);

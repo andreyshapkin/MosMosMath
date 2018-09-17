@@ -16,7 +16,8 @@ public class FragmentMathLCM extends FragmentMathBase {
 
     private static final String TAG = "FragmentMathLCM";
 
-    public FragmentMathLCM() {
+    @Override
+    public void initFragment() {
         Log.d(TAG, "FragmentMathLCM: constructor");
         fragment_layout_id = R.layout.fragment_math_lcm;
 

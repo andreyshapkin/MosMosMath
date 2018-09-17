@@ -11,8 +11,9 @@ import android.util.Log;
 public class FragmentMathFractionComplex extends FragmentMathBase {
     private static final String TAG = "FragmentMathFractionComplex";
 
-    public FragmentMathFractionComplex() {
-        Log.d(TAG, "FragmentMathFractionComplex: constructor");
+    @Override
+    public void initFragment() {
+        Log.d(TAG, "initFragment:");
 
         fragment_layout_id = R.layout.fragment_math_fraction_complex;
 

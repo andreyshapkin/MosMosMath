@@ -19,7 +19,8 @@ import java.util.List;
 public class FragmentMathSimple extends FragmentMathBase {
     private static final String TAG = "FragmentMathSimple";
 
-    public FragmentMathSimple() {
+    @Override
+    public void initFragment() {
         Log.d(TAG, "FragmentMathSimple: constructor");
 
         fragment_layout_id = R.layout.fragment_math_simple;
