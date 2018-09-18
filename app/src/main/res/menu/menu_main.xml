@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuSelectMathProblem"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Select math problems" />
+    <item
+        android:id="@+id/menuSettings"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Settings" />
+    <item
+        android:id="@+id/menuAbout"
+        android:icon="@mipmap/ic_launcher"
+        android:title="About" />
+</menu>

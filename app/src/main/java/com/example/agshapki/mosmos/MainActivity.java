@@ -2,8 +2,11 @@ package com.example.agshapki.mosmos;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +60,22 @@ public class MainActivity extends Activity {
 
         Log.d(TAG, "onCreate: updating gui with task");
         updateGui();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuSelectMathProblem:
+                startActivity(new Intent(this, MenuSelectMathProblemsActivity.class));
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void popMessage(String text) {
