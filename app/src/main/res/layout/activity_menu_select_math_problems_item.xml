@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menuSelectMathLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_weight="10"
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/menuSelectMathDescription"
@@ -14,5 +23,5 @@
         android:id="@+id/menuSelectMathSwitch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="10" />
+        android:layout_weight="20" />
 </LinearLayout>

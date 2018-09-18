@@ -17,7 +17,7 @@ public class MenuSelectMathProblemsActivity extends Activity {
         Log.d(TAG, "onCreate: creating adapter");
 
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.menuSelectProblemList);
-        recyclerView.setAdapter(new MenuSelectMathProblemsActivityAdapter());
+        recyclerView.setAdapter(new MenuSelectMathProblemsActivityAdapter(MathProblemVisualizer.getInstance().menuMathProblems));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

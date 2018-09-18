@@ -59,13 +59,13 @@ class MathGenerator {
 //                listOfPossibleOpTypes.add(type);
 //            }
 //        }
-        //listOfPossibleOpTypes.add(OperationType.ADD_1DIG);
+        listOfPossibleOpTypes.add(OperationType.ADD_1DIG);
         //listOfPossibleOpTypes.add(OperationType.LCM_3DIG);
         //listOfPossibleOpTypes.add(OperationType.FRACT_EXTRACT_WHOLE);
         //listOfPossibleOpTypes.add(OperationType.FRACT_SIMPLE_ADD_SAME_DEN);
         //listOfPossibleOpTypes.add(OperationType.FRACT_SIMPLE_SUB_SAME_DEN);
         //listOfPossibleOpTypes.add(OperationType.FRACT_ADD_SAME_DEN);
-        listOfPossibleOpTypes.add(OperationType.FRACT_SUB_SAME_DEN);
+        //listOfPossibleOpTypes.add(OperationType.FRACT_SUB_SAME_DEN);
     }
 
     MathProblem generate() {

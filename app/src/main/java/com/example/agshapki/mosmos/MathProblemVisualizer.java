@@ -16,6 +16,8 @@ public class MathProblemVisualizer {
         return _static_entry;
     }
 
+    public MenuSelectMathProblemsVisualizer menuMathProblems = new MenuSelectMathProblemsVisualizer();
+
     public enum GuiViewType {
         INVALID,
         SIMPLE,
@@ -59,9 +61,9 @@ public class MathProblemVisualizer {
     }
 
     public String visualizeStats() {
-        return "Total: " + String.valueOf(mainMathClass.stats.total)
-                + " right: " + String.valueOf(mainMathClass.stats.right)
-                + " wrong: " + String.valueOf(mainMathClass.stats.wrong);
+        return "Total: " + String.valueOf(mainMathClass.stats.getTotal())
+                + " right: " + String.valueOf(mainMathClass.stats.getRight())
+                + " wrong: " + String.valueOf(mainMathClass.stats.getWrong());
     }
 
     public void visualizeMathProblem() {

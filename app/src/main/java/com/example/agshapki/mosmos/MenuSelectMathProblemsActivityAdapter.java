@@ -1,15 +1,22 @@
 package com.example.agshapki.mosmos;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
 public class MenuSelectMathProblemsActivityAdapter extends RecyclerView.Adapter<MenuSelectMathProblemsActivityAdapter.MenuSelectProblemActivityHolder> {
     private static final String TAG = "MathProblemsAdapter";
+    private MenuSelectMathProblemsVisualizerInterface control;
+
+    public MenuSelectMathProblemsActivityAdapter(MenuSelectMathProblemsVisualizerInterface control) {
+        this.control = control;
+    }
 
     @Override
     public MenuSelectProblemActivityHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -19,10 +26,10 @@ public class MenuSelectMathProblemsActivityAdapter extends RecyclerView.Adapter<
     }
 
     @Override
-    public void onBindViewHolder(MenuSelectProblemActivityHolder holder, final int position) {
+    public void onBindViewHolder(final MenuSelectProblemActivityHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called " + String.valueOf(position));
 
-        holder.textDescription.setText("Description " + String.valueOf(position));
+        holder.textDescription.setText(control.getDescription(position));
         holder.textDescription.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -31,19 +38,23 @@ public class MenuSelectMathProblemsActivityAdapter extends RecyclerView.Adapter<
             }
         });
 
-        holder.switchEn.setChecked(true);
+        holder.switchEn.setChecked(control.getSwitchState(position));
         holder.switchEn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: switch state changed " + String.valueOf(position));
+                control.setSwitchState(position, holder.switchEn.isChecked());
             }
         });
+        if ((position&1) ==0) {
+            holder.layout.setBackgroundColor(Color.LTGRAY);
+        }
     }
 
     @Override
     public int getItemCount() {
         Log.d(TAG, "getItemCount: called");
-        return 5;
+        return control.getItemCount();
     }
 
     class MenuSelectProblemActivityHolder extends RecyclerView.ViewHolder {
@@ -51,12 +62,14 @@ public class MenuSelectMathProblemsActivityAdapter extends RecyclerView.Adapter<
 
         TextView textDescription;
         Switch switchEn;
+        LinearLayout layout;
 
         public MenuSelectProblemActivityHolder(View itemView) {
             super(itemView);
             Log.d(TAG, "MenuSelectProblemActivityHolder: costructor");
             textDescription = (TextView)itemView.findViewById(R.id.menuSelectMathDescription);
             switchEn =  (Switch) itemView.findViewById(R.id.menuSelectMathSwitch);
+            layout = (LinearLayout) itemView.findViewById(R.id.menuSelectMathLayout);
         }
     }
 }

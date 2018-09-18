@@ -2,20 +2,10 @@ package com.example.agshapki.mosmos;
 
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public class MainMathClass {
     private static final String TAG = "MainMathClass";
 
-    public class Stats {
-        Integer total = 0;
-        Integer right = 0;
-        Integer wrong = 0;
-    }
-
-    Stats stats = new Stats();
+    MathDayStats stats = new MathDayStats();
     MathGenerator mathGenerator = new MathGenerator();
     MathProblem currentMathProblem;
 
@@ -41,11 +31,11 @@ public class MainMathClass {
         boolean checkResult = currentMathProblem.checkResult();
         if (!checkedBefore) {
             if (checkResult) {
-                stats.right++;
+                stats.incRight();
             } else {
-                stats.wrong++;
+                stats.incWrong();
             }
-            stats.total++;
+            stats.incTotal();
         }
         return checkResult;
     }

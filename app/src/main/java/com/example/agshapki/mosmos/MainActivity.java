@@ -3,7 +3,9 @@ package com.example.agshapki.mosmos;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +21,9 @@ public class MainActivity extends Activity {
 
     MathProblemVisualizer mathProblemVisualizer =  new MathProblemVisualizer();
 
+    public static SharedPreferences sharedPreferences;
+    public static SharedPreferences.Editor sharedPreferencesEditor;
+
     // widgets of them main activity
     TextView textViewDescription;
     TextView textViewStats;
@@ -28,6 +33,7 @@ public class MainActivity extends Activity {
 
     MainActivity() {
         Log.d(TAG, "MainActivity: started");
+
         fragmentMap.put(MathProblemVisualizer.GuiViewType.SIMPLE,new FragmentMathSimple());
         fragmentMap.put(MathProblemVisualizer.GuiViewType.FRACTION_EXTRACT_WHOLE,new FragmentMathFractionExtractWhole());
         fragmentMap.put(MathProblemVisualizer.GuiViewType.FRACTION_SIMPLE,new FragmentMathFractionSimple());
@@ -40,6 +46,9 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferencesEditor = sharedPreferences.edit();
 
         Log.d(TAG, "onCreate: main activity started");
 
