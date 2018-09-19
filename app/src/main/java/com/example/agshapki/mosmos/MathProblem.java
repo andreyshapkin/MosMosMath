@@ -4,19 +4,22 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
-public class MathProblem {
+abstract public class MathProblem {
+    private static final String TAG = "MathProblem";
+    public static Random random = new Random();
+
     public MathGenerator.OperationType operationType = MathGenerator.OperationType.INVALID;
     public List<Integer> operands = new ArrayList<Integer>();
     public List<Integer> result = new ArrayList<Integer>();
-
-    private static final String TAG = "MathProblem";
 
     public boolean resultChecked = false;
     public List<Integer> userAnswer = new ArrayList<Integer>();
     int userAnswerIndex = 0;
 
-    public String toString() {
+    public final String getString() {
         String s = "math problem:";
         s += " type=" + operationType.toString();
         s += " ops=[" + arrayToString(operands) + "]";
@@ -25,7 +28,7 @@ public class MathProblem {
         s += " usr_idx=" + String.valueOf(userAnswerIndex);
         return s;
     }
-    private String arrayToString(List<Integer> list) {
+    private final String arrayToString(List<Integer> list) {
         String s = "";
         for (int i=0;i<list.size();i++) {
             s += String.valueOf(i) + ":" + String.valueOf(list.get(i)) + " ";
@@ -33,7 +36,7 @@ public class MathProblem {
         return s;
     }
 
-    public void AddDigitToResult(Integer number) {
+    public final void AddDigitToResult(Integer number) {
         while (userAnswerIndex >= userAnswer.size()) {
             userAnswer.add(0);
         }
@@ -43,7 +46,7 @@ public class MathProblem {
         Log.d(TAG, "AddDigitToResult: userIndex=" + String.valueOf(userAnswerIndex) + " userAnswer" + arrayToString(userAnswer));
     }
 
-    public void incrementAnswerIndex() {
+    public final void incrementAnswerIndex() {
         userAnswerIndex ++;
         if (userAnswerIndex >= result.size()) {
             userAnswerIndex = 0;
@@ -51,7 +54,16 @@ public class MathProblem {
         Log.d(TAG, "incrementResultIndex: userAnswerIndex=" + String.valueOf(userAnswerIndex));
     }
 
-    public void clearAllResults() {
+    public final void clearAll() {
+        Log.d(TAG, "clearAll: cleared");
+        operands.clear();
+        result.clear();
+        resultChecked = false;
+        userAnswer.clear();
+        userAnswerIndex = 0;
+    }
+
+    public final void clearAllResults() {
         Log.d(TAG, "clearAllResults: cleared");
         userAnswer.clear();
         userAnswerIndex = 0;
@@ -59,7 +71,7 @@ public class MathProblem {
 
     public boolean checkResult() {
         resultChecked = true;
-        Log.d(TAG, "checkResult: checking: " + toString());
+        Log.d(TAG, "checkResult: checking: " + getString());
 
         if (userAnswer.size() != result.size()) {
             Log.d(TAG, "checkResult: size does not match: false");
@@ -74,5 +86,20 @@ public class MathProblem {
         Log.d(TAG, "checkResult: true");
         return true;
     }
+
+    public final void generate() {
+        Log.d(TAG, "generate: generating new math problem");
+        clearAll();
+        generateMe();
+        Log.d(TAG, "generate: generated new math problem " + getString());
+    }
+    public final void generate(MathGenerator.OperationType opType) {
+        this.operationType = opType;
+        generate();
+    }
+
+    abstract public void generateMe();
+    abstract public String getDescription();
+    public String getDetails() {throw new AssertionError("getDetails is not implemented for " + this);}
 
 }

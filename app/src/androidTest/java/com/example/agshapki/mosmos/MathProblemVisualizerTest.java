@@ -27,7 +27,7 @@ public class MathProblemVisualizerTest {
 
     @Test
     public void visualizeMathProblem() {
-        MathProblem mathProblem = new MathProblem();
+        MathProblem mathProblem = new MathProblemSumMax1Dig();
         mathProblem.operationType = MathGenerator.OperationType.ADD_1DIG;
         mathProblem.operands.add(1);
         mathProblem.operands.add(2);
@@ -46,7 +46,7 @@ public class MathProblemVisualizerTest {
 
         assertEquals("5", vis.contentList.get(4));
 
-        mathProblem = new MathProblem();
+        mathProblem = new MathProblemMult1Dig();
         mathProblem.operationType = MathGenerator.OperationType.MULT_1DIG;
         mathProblem.operands.add(2);
         mathProblem.operands.add(3);
@@ -61,7 +61,7 @@ public class MathProblemVisualizerTest {
 
     @Test
     public void HandleEnterButton() {
-        MathProblem mathProblem = new MathProblem();
+        MathProblem mathProblem = new MathProblemMult1Dig();
         mathProblem.operationType = MathGenerator.OperationType.MULT_1DIG;
         mathProblem.operands.add(2);
         mathProblem.operands.add(3);

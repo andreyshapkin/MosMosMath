@@ -71,7 +71,7 @@ public class MathProblemVisualizer {
     }
 
     public void visualizeMathProblem(MathProblem problem) {
-        Log.d(TAG, "visualizeMathProblem: visualizing " + problem.toString());
+        Log.d(TAG, "visualizeMathProblem: visualizing " + problem.getString());
 
         contentList.clear();
         // FIXME - find a better way
@@ -106,7 +106,7 @@ public class MathProblemVisualizer {
 
         guiViewType = GuiViewType.SIMPLE;
 
-        description = "Solve this math problem! "; // + problem.operationType.toString() + " " + String.valueOf(problem.result.get(0));
+        description = "Solve this math problem! "; // + problem.operationType.getString() + " " + String.valueOf(problem.result.get(0));
 
         contentList.add(String.valueOf(problem.operands.get(0)));
         contentList.add(getOperationTypeString(problem.operationType));
@@ -169,7 +169,7 @@ public class MathProblemVisualizer {
         Log.d(TAG, "visualizeMathFraction: ");
         guiViewType = GuiViewType.FRACTION;
 
-        description = "Solve this math problem! "; // + problem.operationType.toString() + " " + String.valueOf(problem.result.get(0));
+        description = "Solve this math problem! "; // + problem.operationType.getString() + " " + String.valueOf(problem.result.get(0));
 
         contentList.add(String.valueOf(problem.operands.get(0)));
         contentList.add(String.valueOf(problem.operands.get(1)));
