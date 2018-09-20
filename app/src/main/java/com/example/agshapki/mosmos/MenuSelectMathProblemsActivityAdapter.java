@@ -66,7 +66,7 @@ public class MenuSelectMathProblemsActivityAdapter extends RecyclerView.Adapter<
 
         public MenuSelectProblemActivityHolder(View itemView) {
             super(itemView);
-            Log.d(TAG, "MenuSelectProblemActivityHolder: costructor");
+            Log.d(TAG, "MenuSelectProblemActivityHolder: constructor");
             textDescription = (TextView)itemView.findViewById(R.id.menuSelectMathDescription);
             switchEn =  (Switch) itemView.findViewById(R.id.menuSelectMathSwitch);
             layout = (LinearLayout) itemView.findViewById(R.id.menuSelectMathLayout);

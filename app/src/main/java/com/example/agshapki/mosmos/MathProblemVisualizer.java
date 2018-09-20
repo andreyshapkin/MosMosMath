@@ -2,12 +2,26 @@ package com.example.agshapki.mosmos;
 
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MathProblemVisualizer {
+public class MathProblemVisualizer implements NumPadControlInterface {
 
     private static final String TAG = "MathProblemVisualizer";
+
+    public enum GuiViewType {
+        INVALID                     (null),
+        SIMPLE                      (new MathVisualizerSimple()),
+        LCM                         (new MathVisualizerLCM()),
+        FRACTION_EXTRACT_WHOLE      (new MathVisualizerFractionExtractWhole()),
+        FRACTION_SIMPLE             (new MathVisualizerFractionSimple()),
+        FRACTION_COMPLEX            (new MathVisualizerFractionComplex());
+
+        public MathVisualizerBase problemVisualizer;
+
+        GuiViewType(MathVisualizerBase problemVisualizer) {
+            Log.d(TAG, "GuiViewType: creating new  instance " + this.toString());
+            this.problemVisualizer = problemVisualizer;
+        }
+    }
+
 
     // Fragments needs access to it, otherwise need to pass it to the Fragments somehow
     private static MathProblemVisualizer _static_entry = null;
@@ -16,30 +30,14 @@ public class MathProblemVisualizer {
         return _static_entry;
     }
 
-    public MenuSelectMathProblemsVisualizer menuMathProblems = new MenuSelectMathProblemsVisualizer();
+    MathDayStats stats = new MathDayStats();
+    MathGenerator mathGenerator = new MathGenerator();
+    MathProblem currentMathProblem;
 
-    public enum GuiViewType {
-        INVALID,
-        SIMPLE,
-        LCM,
-        FRACTION_EXTRACT_WHOLE,
-        FRACTION_SIMPLE,
-        FRACTION;
-    }
-
-    // top level description
-    String description;
-
-    // textView widgets control
-    GuiViewType guiViewType = GuiViewType.INVALID;
-    List<String> contentList = new ArrayList<String>();
-    public int colorText = 0;
-    public int highlightText = 0;
+    MenuSelectMathProblemsVisualizer menuMathProblems = new MenuSelectMathProblemsVisualizer(mathGenerator);
 
     // pop message to show in the gui
     String popMessage = "";
-
-    MainMathClass mainMathClass = new MainMathClass();
 
     MathProblemVisualizer() {
         Log.d(TAG, "MathProblemVisualizer: constructor");
@@ -50,8 +48,6 @@ public class MathProblemVisualizer {
         } else {
             _static_entry = this;
         }
-
-        startNewProblem();
     }
 
     public String visualizePopMessage() {
@@ -61,204 +57,82 @@ public class MathProblemVisualizer {
     }
 
     public String visualizeStats() {
-        return "Total: " + String.valueOf(mainMathClass.stats.getTotal())
-                + " right: " + String.valueOf(mainMathClass.stats.getRight())
-                + " wrong: " + String.valueOf(mainMathClass.stats.getWrong());
+        return "Total: " + String.valueOf(stats.getTotal())
+                + " right: " + String.valueOf(stats.getRight())
+                + " wrong: " + String.valueOf(stats.getWrong());
     }
 
-    public void visualizeMathProblem() {
-        visualizeMathProblem(mainMathClass.currentMathProblem);
+    public MathVisualizerBase visualizeMathProblem() {
+        if (currentMathProblem == null) {
+            regenerateMathProblem();
+        }
+        return visualizeMathProblem(currentMathProblem);
     }
 
-    public void visualizeMathProblem(MathProblem problem) {
+    public MathVisualizerBase visualizeMathProblem(MathProblem problem) {
         Log.d(TAG, "visualizeMathProblem: visualizing " + problem.getString());
 
-        contentList.clear();
-        // FIXME - find a better way
-        if (problem.operationType.toString().startsWith("FRACT_EXTRACT")) {
-            visualizeMathFractionExtractWhole(problem);
-        } else if (problem.operationType.toString().startsWith("FRACT_SIMPLE")) {
-            visualizeMathFractionSimple(problem);
-        } else if (problem.operationType.toString().startsWith("FRACT")) {
-            visualizeMathFraction(problem);
-        } else if (problem.operationType.toString().startsWith("LCM")) {
-            visualizeLCM(problem);
-        } else {
-            visualizeMathSimple(problem);
-        }
-        Log.d(TAG, "visualizeMathProblem: visualize: " + toString());
+        GuiViewType guiViewType = problem.operationType.viewType;
+        MathVisualizerBase problemVisualizer = guiViewType.problemVisualizer;
+        problemVisualizer.visualize(problem, guiViewType);
+
+        return problemVisualizer;
     }
 
-    public String toString() {
-        String s = "visualizer: ";
-        s += "cSize=" + contentList.size();
-        s += "[";
-        for (int i=0;i<contentList.size();i++) {
-            s += "<" + contentList.get(i) + "> ";
-        }
-        s += "]";
-        return s;
-    }
-
-
-    private void visualizeMathSimple(MathProblem problem) {
-        Log.d(TAG, "visualizeMathSimple: ");
-
-        guiViewType = GuiViewType.SIMPLE;
-
-        description = "Solve this math problem! "; // + problem.operationType.getString() + " " + String.valueOf(problem.result.get(0));
-
-        contentList.add(String.valueOf(problem.operands.get(0)));
-        contentList.add(getOperationTypeString(problem.operationType));
-        contentList.add(String.valueOf(problem.operands.get(1)));
-        contentList.add("=");
-
-        if (problem.userAnswer.size() > 0) {
-            contentList.add(String.valueOf(problem.userAnswer.get(0)));
-        } else {
-            contentList.add("?");
-        }
-    }
-
-    private void visualizeMathFractionExtractWhole(MathProblem problem) {
-        Log.d(TAG, "visualizeMathFractionExtractWhole: ");
-        guiViewType = GuiViewType.FRACTION_EXTRACT_WHOLE;
-
-        description = "Extract Whole number, do not simplify fraction! ";
-        contentList.add(String.valueOf(problem.operands.get(0)));
-        contentList.add(String.valueOf(problem.operands.get(1)));
-
-        for (int i=0;i<3;i++) {
-            if (i < problem.userAnswer.size()) {
-                contentList.add(String.valueOf(problem.userAnswer.get(i)));
-            } else {
-                contentList.add("?");
-            }
-        }
-
-        colorText = 1 << (2 + problem.userAnswerIndex);
-        highlightText = 0x7 << 2;
-
-    }
-
-    private void visualizeMathFractionSimple(MathProblem problem) {
-        Log.d(TAG, "visualizeMathFractionSimple: ");
-        guiViewType = GuiViewType.FRACTION_SIMPLE;
-
-        description = "Solve it, do not simplify fraction! ";
-        contentList.add(String.valueOf(problem.operands.get(0)));
-        contentList.add(String.valueOf(problem.operands.get(1)));
-        contentList.add(getOperationTypeString(problem.operationType));
-        contentList.add(String.valueOf(problem.operands.get(2)));
-        contentList.add(String.valueOf(problem.operands.get(3)));
-
-        for (int i=0;i<2;i++) {
-            if (i < problem.userAnswer.size()) {
-                contentList.add(String.valueOf(problem.userAnswer.get(i)));
-            } else {
-                contentList.add("?");
-            }
-        }
-
-        colorText = 1 << (5 + problem.userAnswerIndex);
-        highlightText = 0x3 << 5;
-
-    }
-
-    private void visualizeMathFraction(MathProblem problem) {
-        Log.d(TAG, "visualizeMathFraction: ");
-        guiViewType = GuiViewType.FRACTION;
-
-        description = "Solve this math problem! "; // + problem.operationType.getString() + " " + String.valueOf(problem.result.get(0));
-
-        contentList.add(String.valueOf(problem.operands.get(0)));
-        contentList.add(String.valueOf(problem.operands.get(1)));
-        contentList.add(String.valueOf(problem.operands.get(2)));
-        contentList.add(getOperationTypeString(problem.operationType));
-        contentList.add(String.valueOf(problem.operands.get(3)));
-        contentList.add(String.valueOf(problem.operands.get(4)));
-        contentList.add(String.valueOf(problem.operands.get(5)));
-
-        for (int i=0;i<3;i++) {
-            if (i < problem.userAnswer.size()) {
-                contentList.add(String.valueOf(problem.userAnswer.get(i)));
-            } else {
-                contentList.add("?");
-            }
-        }
-
-        colorText = 1 << (7 + problem.userAnswerIndex);
-        highlightText = 0x7 << 7;
-    }
-
-    private void visualizeLCM(MathProblem problem) {
-        Log.d(TAG, "visualizeLCM: ");
-
-        guiViewType = GuiViewType.LCM;
-
-        description = "Find LCM of the numbers";
-
-        contentList.add(String.valueOf(problem.operands.get(0)));
-        contentList.add(String.valueOf(problem.operands.get(1)));
-        if (problem.operands.size()>2) {
-            contentList.add(String.valueOf(problem.operands.get(2)));
-        } else {
-            contentList.add(" ");
-        }
-        if (problem.userAnswer.size()>0) {
-            contentList.add(String.valueOf(problem.userAnswer.get(0)));
-        } else {
-            contentList.add("?");
-        }
-    }
-
-    public String getOperationTypeString(MathGenerator.OperationType operationType) {
-        String operationTypeString = operationType.toString();
-
-        if (operationTypeString.contains("ADD")) {
-            return "+";
-        }
-        if (operationTypeString.contains("SUB")) {
-            return "-";
-        }
-        if (operationTypeString.contains("MULT")) {
-            return "*";
-        }
-        if (operationTypeString.contains("DIV")) {
-            return "/";
-        }
-        return "ERROR";
-    }
 
     public void startNewProblem() {
         Log.d(TAG, "startNewProblem: starting new problem");
-        mainMathClass.generate();
-        visualizeMathProblem();
+        currentMathProblem = mathGenerator.generate();
     }
 
+    public void regenerateMathProblem() {
+        Log.d(TAG, "restartProblemGeneration: regenerating list and problem");
+        mathGenerator.buildListOfMathProblems();
+        startNewProblem();
+    }
+
+
+    boolean checkResult() {
+        boolean checkedBefore = currentMathProblem.resultChecked;
+        boolean checkResult = currentMathProblem.checkResult();
+        if (!checkedBefore) {
+            if (checkResult) {
+                stats.incRight();
+            } else {
+                stats.incWrong();
+            }
+            stats.incTotal();
+        }
+        return checkResult;
+    }
+
+    @Override
     public void HandleNumPad(Integer number) {
         Log.d(TAG, "HandleNumPad: inserted number " + String.valueOf(number));
-        mainMathClass.AddDigitToResult(number);
+        currentMathProblem.AddDigitToResult(number);
         visualizeMathProblem();
     }
 
+    @Override
     public void HandleCancelButton() {
-        mainMathClass.clearResult();
+        currentMathProblem.clearAllResults();
         visualizeMathProblem();
     }
 
+    @Override
     public void HandleEnterButton() {
-        if (mainMathClass.checkResult()) {
+        if (checkResult()) {
             popMessage = "Good Job!!!";
             startNewProblem();
         } else {
             popMessage = "Ooopsy, try again!!!";
         }
-
     }
 
+    @Override
     public void HandleNextButton() {
-        mainMathClass.nextUserAnswer();
+        currentMathProblem.incrementAnswerIndex();
         visualizeMathProblem();
     }
+
 }

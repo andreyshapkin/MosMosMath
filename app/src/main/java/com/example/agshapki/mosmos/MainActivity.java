@@ -15,7 +15,12 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends Activity {
+interface MainActivityInterface {
+    void updateGui();
+    void updateResultsGui();
+}
+
+public class MainActivity extends Activity implements MainActivityInterface {
 
     private static final String TAG = "MainActivity";
 
@@ -37,7 +42,7 @@ public class MainActivity extends Activity {
         fragmentMap.put(MathProblemVisualizer.GuiViewType.SIMPLE,new FragmentMathSimple());
         fragmentMap.put(MathProblemVisualizer.GuiViewType.FRACTION_EXTRACT_WHOLE,new FragmentMathFractionExtractWhole());
         fragmentMap.put(MathProblemVisualizer.GuiViewType.FRACTION_SIMPLE,new FragmentMathFractionSimple());
-        fragmentMap.put(MathProblemVisualizer.GuiViewType.FRACTION,new FragmentMathFractionComplex());
+        fragmentMap.put(MathProblemVisualizer.GuiViewType.FRACTION_COMPLEX,new FragmentMathFractionComplex());
         fragmentMap.put(MathProblemVisualizer.GuiViewType.LCM, new FragmentMathLCM());
     }
 
@@ -62,13 +67,18 @@ public class MainActivity extends Activity {
 
         Log.d(TAG, "onCreate: loading numPad frame");
         FragmentNumPad fragmentNumpad = new FragmentNumPad();
-        fragmentNumpad.mainActivity = this;
+        fragmentNumpad.activityInterface = this;
+        fragmentNumpad.controlInterface = mathProblemVisualizer;
         fragmentTransaction.add(R.id.numPadFrame, fragmentNumpad);
 
         fragmentTransaction.commit();
 
         Log.d(TAG, "onCreate: updating gui with task");
         updateGui();
+    }
+
+    private void popMessage(String text) {
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -81,30 +91,45 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuSelectMathProblem:
-                startActivity(new Intent(this, MenuSelectMathProblemsActivity.class));
+                startMenuActivity();
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void popMessage(String text) {
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+    static final int REQUEST_MENU_ACTIVITY = 1;  // The request code
+
+    private void startMenuActivity() {
+        Log.d(TAG, "startMenuActivity: starting menu activity");
+        Intent intent = new Intent(this, MenuSelectMathProblemsActivity.class);
+        startActivityForResult(intent, REQUEST_MENU_ACTIVITY);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG, "onActivityResult: ");
+        // returned from menu activity
+        if (requestCode==REQUEST_MENU_ACTIVITY && resultCode==RESULT_OK) {
+            Log.d(TAG, "onActivityResult: returned from menu select activity, regenerate task");
+            mathProblemVisualizer.regenerateMathProblem();
+            updateGui();
+        }
+    }
+
+    @Override
     public void updateGui() {
         Log.d(TAG, "updateGui");
 
         textViewStats.setText(mathProblemVisualizer.visualizeStats());
 
-        mathProblemVisualizer.visualizeMathProblem();
-
-        textViewDescription.setText(mathProblemVisualizer.description);
+        MathVisualizerBase problemVisualizer = mathProblemVisualizer.visualizeMathProblem();
+        textViewDescription.setText(problemVisualizer.description);
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
         // FIXME - remove this dependency
-        Log.d(TAG, "updateGui: loading fragment " + mathProblemVisualizer.guiViewType.toString());
-        FragmentMathBase fragment = fragmentMap.get(mathProblemVisualizer.guiViewType);
+        Log.d(TAG, "updateGui: loading fragment " + problemVisualizer.guiViewType.toString());
+        FragmentMathBase fragment = fragmentMap.get(problemVisualizer.guiViewType);
         fragment.updateGui();
         fragmentTransaction.replace(R.id.mathProblemFrame, fragment);
         fragmentTransaction.commit();
@@ -114,6 +139,7 @@ public class MainActivity extends Activity {
     }
 
     // for performance, only to re-draw
+    @Override
     public void updateResultsGui() {
         Log.d(TAG, "updateResultsGui");
 

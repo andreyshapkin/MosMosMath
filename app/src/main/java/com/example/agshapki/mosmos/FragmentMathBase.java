@@ -66,10 +66,10 @@ abstract public class FragmentMathBase extends Fragment {
         if (mathProblemTextViewList.size()==0) {
             return;
         }
-        MathProblemVisualizer mathProblemVisualizer = MathProblemVisualizer.getInstance();
+        MathVisualizerBase problemVisualizer = MathProblemVisualizer.getInstance().visualizeMathProblem();
 
-        if ((mathProblemTextViewList.size() != mathProblemVisualizer.contentList.size())) {
-            Log.d(TAG, "updateGui: ERROR: visualizer is out of sync on size " + mathProblemTextViewList.size() + " " + mathProblemVisualizer.contentList.size());
+        if ((mathProblemTextViewList.size() != problemVisualizer.contentList.size())) {
+            Log.d(TAG, "updateGui: ERROR: visualizer is out of sync on size " + mathProblemTextViewList.size() + " " + problemVisualizer.contentList.size());
             throw new AssertionError();
         }
 
@@ -77,13 +77,13 @@ abstract public class FragmentMathBase extends Fragment {
 
             TextView textView = mathProblemTextViewList.get(i);
             Log.d(TAG, "updateGui: ind=" + String.valueOf(i) + " updating text view " + textView);
-            textView.setText(mathProblemVisualizer.contentList.get(i));
+            textView.setText(problemVisualizer.contentList.get(i));
 
             clearColor(textView);
-            if ( (mathProblemVisualizer.highlightText & (1<<i)) != 0 ) {
+            if ( (problemVisualizer.highlightText & (1<<i)) != 0 ) {
                 highlightColor(textView);
             }
-            if ( (mathProblemVisualizer.colorText & (1<<i)) != 0 ) {
+            if ( (problemVisualizer.colorText & (1<<i)) != 0 ) {
                 setColor(textView);
             }
         }

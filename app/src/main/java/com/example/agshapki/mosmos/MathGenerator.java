@@ -1,11 +1,24 @@
 package com.example.agshapki.mosmos;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-class MathGenerator {
+interface MathProblemOperationTypeInterface {
+    boolean getOperationTypeEnable(MathGenerator.OperationType operationType);
+    void setOperationTypeEnable(MathGenerator.OperationType operationType, boolean enable);
+}
+
+interface NumPadControlInterface {
+    void HandleNumPad(Integer number);
+    void HandleCancelButton();
+    void HandleEnterButton();
+    void HandleNextButton();
+}
+
+class MathGenerator implements MathProblemOperationTypeInterface {
 
     public enum OperationType {
         ADD_SUM_UNDER10             (new MathProblemSumUnder10(),       MathProblemVisualizer.GuiViewType.SIMPLE),
@@ -43,8 +56,8 @@ class MathGenerator {
         FRACT_SIMPLE_ADD_SAME_DEN   (new MathProblemFractSimpleAddSameDen(),    MathProblemVisualizer.GuiViewType.FRACTION_SIMPLE),
         FRACT_SIMPLE_SUB_SAME_DEN   (new MathProblemFractSimpleSubSameDen(),    MathProblemVisualizer.GuiViewType.FRACTION_SIMPLE),
 
-        FRACT_ADD_SAME_DEN          (new MathProblemFractAddSameDen(),          MathProblemVisualizer.GuiViewType.FRACTION),
-        FRACT_SUB_SAME_DEN          (new MathProblemFractSubSameDen(),          MathProblemVisualizer.GuiViewType.FRACTION),
+        FRACT_ADD_SAME_DEN          (new MathProblemFractAddSameDen(),          MathProblemVisualizer.GuiViewType.FRACTION_COMPLEX),
+        FRACT_SUB_SAME_DEN          (new MathProblemFractSubSameDen(),          MathProblemVisualizer.GuiViewType.FRACTION_COMPLEX),
 
         INVALID                     (null, null);
 
@@ -59,16 +72,15 @@ class MathGenerator {
 
     private static final String TAG = "MathGenerator";
 
+    private SharedPreferences getSharedPreferences() {return MainActivity.sharedPreferences;}
+    private SharedPreferences.Editor getSharedPreferencesEditor() {return MainActivity.sharedPreferencesEditor;}
+
     private Random random = new Random();
     ArrayList<OperationType> listOfPossibleOpTypes = new ArrayList<OperationType>();
-
+    private final boolean debugListOfPossibleOpTypes = false;
 
     public MathGenerator() {
-        for (OperationType type : OperationType.values()) {
-            if (type != OperationType.INVALID) {
-                listOfPossibleOpTypes.add(type);
-            }
-        }
+        //debugListOfPossibleOpTypes = true;
         //listOfPossibleOpTypes.add(OperationType.ADD_1DIG);
         //listOfPossibleOpTypes.add(OperationType.LCM_3DIG);
         //listOfPossibleOpTypes.add(OperationType.FRACT_EXTRACT_WHOLE);
@@ -78,7 +90,51 @@ class MathGenerator {
         //listOfPossibleOpTypes.add(OperationType.FRACT_SUB_SAME_DEN);
     }
 
-    MathProblem generate() {
+    ////////////////////////////////////////////////////////////////////////
+    // Should be it's own class?
+
+    // placeholder
+    private String user = "user";
+    private static final String key = "SELECT_PROBLEM";
+    private String getKey(MathGenerator.OperationType type) {return key + "_" + user + type.toString();}
+
+    @Override
+    public boolean getOperationTypeEnable(MathGenerator.OperationType operationType) {
+        boolean enable = getSharedPreferences().getBoolean(getKey(operationType), false);
+        Log.d(TAG, "getOperationTypeEnable: operationType=" + operationType.toString() + " enable=" + String.valueOf(enable));
+        return enable;
+    }
+
+    @Override
+    public void setOperationTypeEnable(MathGenerator.OperationType operationType, boolean enable) {
+        getSharedPreferencesEditor().putBoolean(getKey(operationType),enable);
+        getSharedPreferencesEditor().commit();
+        Log.d(TAG, "setOperationTypeEnable: setting operationType=" + operationType.toString() + " enable=" + String.valueOf(enable));
+    }
+
+    ////////////////////////////////////////////////////////////////////////
+
+    public void buildListOfMathProblems () {
+        Log.d(TAG, "buildListOfMathProblems: starting");
+        if (debugListOfPossibleOpTypes) {
+            Log.d(TAG, "buildListOfMathProblems: debug mode - returning");
+            return;
+        }
+        listOfPossibleOpTypes.clear();
+        for (OperationType type : OperationType.values()) {
+            if (type != OperationType.INVALID) {
+                if (getOperationTypeEnable(type)) {
+                    Log.d(TAG, "buildListOfMathProblems: adding " + type.toString());
+                    listOfPossibleOpTypes.add(type);
+                }
+            }
+        }
+        if (listOfPossibleOpTypes.size()==0) {
+            listOfPossibleOpTypes.add(OperationType.ADD_SUM_UNDER10);
+        }
+    }
+
+    public MathProblem generate() {
         Log.d(TAG, "generate: generating new problem");
         OperationType operationType = listOfPossibleOpTypes.get(random.nextInt(listOfPossibleOpTypes.size()));
         MathProblem mathProblem = generateMathProblem(operationType);
@@ -86,7 +142,7 @@ class MathGenerator {
         return mathProblem;
     }
 
-    MathProblem generateMathProblem(OperationType operationType) {
+    public MathProblem generateMathProblem(OperationType operationType) {
         MathProblem mathProblem = operationType.mathProblem;
         mathProblem.generate(operationType);
         return mathProblem;

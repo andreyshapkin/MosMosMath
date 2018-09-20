@@ -23,12 +23,8 @@ public class MathDayStats {
     private int right = 0;
     private int wrong = 0;
 
-    private SharedPreferences getSharedPreferences() {
-        return MainActivity.sharedPreferences;
-    }
-    private SharedPreferences.Editor getSharedPreferencesEditor() {
-        return MainActivity.sharedPreferencesEditor;
-    }
+    private SharedPreferences getSharedPreferences() {return MainActivity.sharedPreferences;}
+    private SharedPreferences.Editor getSharedPreferencesEditor() {return MainActivity.sharedPreferencesEditor;}
 
     public void incTotal() {
         checkStatsUpToDate();
