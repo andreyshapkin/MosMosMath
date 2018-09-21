@@ -48,6 +48,8 @@ public class MenuSelectMathProblemsActivityAdapter extends RecyclerView.Adapter<
         });
         if ((position&1) ==0) {
             holder.layout.setBackgroundColor(Color.LTGRAY);
+        } else {
+            holder.layout.setBackgroundColor(Color.TRANSPARENT);
         }
     }
 

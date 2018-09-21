@@ -8,7 +8,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="28dp"
-        android:layout_height="28dp"
+        android:layout_height="match_parent"
         android:layout_weight="10"
         android:src="@mipmap/ic_launcher" />
 
@@ -17,7 +17,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="80"
-        android:text="Description" />
+        android:text="Description"
+        android:textSize="18sp" />
 
     <Switch
         android:id="@+id/menuSelectMathSwitch"
