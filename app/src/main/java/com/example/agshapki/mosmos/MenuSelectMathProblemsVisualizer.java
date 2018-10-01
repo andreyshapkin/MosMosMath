@@ -35,7 +35,7 @@ public class MenuSelectMathProblemsVisualizer implements MenuSelectMathProblemsV
         return listOfTypes.get(position);
     }
 
-    public MathProblem getMathProblem(int position) {
+    private MathProblem getMathProblem(int position) {
         MathGenerator.OperationType operationType = getOperationType(position);
         return operationType.mathProblem;
     }

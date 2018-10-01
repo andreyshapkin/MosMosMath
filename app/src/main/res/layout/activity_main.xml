@@ -92,7 +92,7 @@
         android:layout_height="72dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:src="@drawable/mosmos2"
+        android:src="@drawable/mosmos_xl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/linearLayout"
         tools:layout_editor_absoluteY="8dp" />

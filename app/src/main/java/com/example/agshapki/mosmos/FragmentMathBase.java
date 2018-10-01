@@ -39,6 +39,7 @@ abstract public class FragmentMathBase extends Fragment {
 
         Log.d(TAG, "onCreateView: creating fraction fragment");
 
+        widgetIDs.clear();
         initFragment();
 
         // Inflate the layout for this fragment

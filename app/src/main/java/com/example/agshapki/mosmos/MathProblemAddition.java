@@ -21,9 +21,9 @@ class MathProblemAddition {
     }
 }
 
-class MathProblemSumUnder10 extends MathProblem {
+class MathProblemAddUnder10 extends MathProblem {
     @Override
-    public String getDescription() {return "Addition sum up to 10";}
+    public String getDescription() {return "Addition up to 10";}
 
     @Override
     public void generateMe() {
@@ -31,9 +31,9 @@ class MathProblemSumUnder10 extends MathProblem {
     }
 }
 
-class MathProblemSumMax1Dig extends MathProblem {
+class MathProblemAddMax1Dig extends MathProblem {
     @Override
-    public String getDescription() {return "Addition single digit";}
+    public String getDescription() {return "Addition 1 digit";}
 
     @Override
     public void generateMe() {
@@ -41,9 +41,9 @@ class MathProblemSumMax1Dig extends MathProblem {
     }
 }
 
-class MathProblemSumUnder100 extends MathProblem {
+class MathProblemAddUnder100 extends MathProblem {
     @Override
-    public String getDescription() {return "Addition sum up to 100";}
+    public String getDescription() {return "Addition up to 100";}
 
     @Override
     public void generateMe() {
@@ -51,7 +51,7 @@ class MathProblemSumUnder100 extends MathProblem {
     }
 }
 
-class MathProblemSum2Dig extends MathProblem {
+class MathProblemAdd2Dig extends MathProblem {
     @Override
     public String getDescription() {return "Addition 2 digit";}
 
@@ -61,9 +61,9 @@ class MathProblemSum2Dig extends MathProblem {
     }
 }
 
-class MathProblemSum2Dig1Dig extends MathProblem {
+class MathProblemAdd2Dig1Dig extends MathProblem {
     @Override
-    public String getDescription() {return "Addition 2d plus 1d";}
+    public String getDescription() {return "Addition 2 digit simple";}
 
     @Override
     public void generateMe() {
@@ -73,9 +73,9 @@ class MathProblemSum2Dig1Dig extends MathProblem {
     }
 }
 
-class MathProblemSum2DigRound2Dig extends MathProblem {
+class MathProblemAdd2DigRound2Dig extends MathProblem {
     @Override
-    public String getDescription() {return "Addition 2d plus tens";}
+    public String getDescription() {return "Addition 2 digit plus tens";}
 
     @Override
     public void generateMe() {
@@ -85,9 +85,9 @@ class MathProblemSum2DigRound2Dig extends MathProblem {
     }
 }
 
-class MathProblemSumTens extends MathProblem {
+class MathProblemAddTens extends MathProblem {
     @Override
-    public String getDescription() {return "Addition tens";}
+    public String getDescription() {return "Addition 2 digit tens";}
 
     @Override
     public void generateMe() {

@@ -11,7 +11,7 @@ class MathProblemMultiplication {
 
 class MathProblemMultUnder5 extends MathProblem {
     @Override
-    public String getDescription() {return "Mult. under 5";}
+    public String getDescription() {return "Multiplication under 5";}
 
     @Override
     public void generateMe() {
@@ -23,7 +23,7 @@ class MathProblemMultUnder5 extends MathProblem {
 
 class MathProblemMult1Dig extends MathProblem {
     @Override
-    public String getDescription() {return "Mult. 1 digit";}
+    public String getDescription() {return "Multiplication under 10";}
 
     @Override
     public void generateMe() {
@@ -35,7 +35,7 @@ class MathProblemMult1Dig extends MathProblem {
 
 class MathProblemMult1DigTens extends MathProblem {
     @Override
-    public String getDescription() {return "Mult. by tens";}
+    public String getDescription() {return "Multiplication by tens";}
 
     @Override
     public void generateMe() {
@@ -47,7 +47,7 @@ class MathProblemMult1DigTens extends MathProblem {
 
 class MathProblemMult1DigBy20 extends MathProblem {
     @Override
-    public String getDescription() {return "Mult. by 10s";}
+    public String getDescription() {return "Multiplication by 10-s";}
 
     @Override
     public void generateMe() {
@@ -59,7 +59,7 @@ class MathProblemMult1DigBy20 extends MathProblem {
 
 class MathProblemMult1DigBy30 extends MathProblem {
     @Override
-    public String getDescription() {return "Mult. by 20s";}
+    public String getDescription() {return "Multiplication by 20-s";}
 
     @Override
     public void generateMe() {

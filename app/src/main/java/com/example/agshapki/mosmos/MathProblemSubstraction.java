@@ -12,7 +12,7 @@ class MathProblemSubstraction {
 
 class MathProblemSubUnder10 extends MathProblem {
     @Override
-    public String getDescription() {return "Substr. under 10";}
+    public String getDescription() {return "Subtraction under 10";}
 
     @Override
     public void generateMe() {
@@ -24,7 +24,7 @@ class MathProblemSubUnder10 extends MathProblem {
 
 class MathProblemSubUnder20 extends MathProblem {
     @Override
-    public String getDescription() {return "Substr. under 20";}
+    public String getDescription() {return "Subtraction under 20";}
 
     @Override
     public void generateMe() {
@@ -36,7 +36,7 @@ class MathProblemSubUnder20 extends MathProblem {
 
 class MathProblemSub2Dig1DigSimp extends MathProblem {
     @Override
-    public String getDescription() {return "Substr. 2dig-1dig simple";}
+    public String getDescription() {return "Subtraction 2 dig 1 dig simple";}
 
     @Override
     public void generateMe() {
@@ -48,7 +48,7 @@ class MathProblemSub2Dig1DigSimp extends MathProblem {
 
 class MathProblemSub2Dig1Dig extends MathProblem {
     @Override
-    public String getDescription() {return "Substr. 2dig-1dig";}
+    public String getDescription() {return "Subtraction 2 dig 1 digit";}
 
     @Override
     public void generateMe() {
@@ -60,7 +60,7 @@ class MathProblemSub2Dig1Dig extends MathProblem {
 
 class MathProblemSubTens extends MathProblem {
     @Override
-    public String getDescription() {return "Substr. tens";}
+    public String getDescription() {return "Subtraction tens";}
 
     @Override
     public void generateMe() {
@@ -72,7 +72,7 @@ class MathProblemSubTens extends MathProblem {
 
 class MathProblemSub2DigSimple extends MathProblem {
     @Override
-    public String getDescription() {return "Substr. 2 digits simple";}
+    public String getDescription() {return "Subtraction 2 digits simple";}
 
     @Override
     public void generateMe() {
@@ -84,7 +84,7 @@ class MathProblemSub2DigSimple extends MathProblem {
 
 class MathProblemSub2Dig extends MathProblem {
     @Override
-    public String getDescription() {return "Substr. 2 digits";}
+    public String getDescription() {return "Subtraction 2 digits";}
 
     @Override
     public void generateMe() {

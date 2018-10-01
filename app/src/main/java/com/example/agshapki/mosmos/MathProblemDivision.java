@@ -35,7 +35,7 @@ class MathProblemDiv2DigSimple extends MathProblem {
 
 class MathProblemDiv2DigUnder20 extends MathProblem {
     @Override
-    public String getDescription() {return "Division by 10s";}
+    public String getDescription() {return "Division by 10-s";}
 
     @Override
     public void generateMe() {
@@ -47,7 +47,7 @@ class MathProblemDiv2DigUnder20 extends MathProblem {
 
 class MathProblemDiv2DigUnder30 extends MathProblem {
     @Override
-    public String getDescription() {return "Division by 20s";}
+    public String getDescription() {return "Division by 20-s";}
 
     @Override
     public void generateMe() {

@@ -60,7 +60,7 @@ public class MenuSelectMathProblemsActivityAdapter extends RecyclerView.Adapter<
     }
 
     class MenuSelectProblemActivityHolder extends RecyclerView.ViewHolder {
-        private static final String TAG = "MenuSelectProblemActivityHolder";
+        private static final String TAG = "MenuSelectProblem";
 
         TextView textDescription;
         Switch switchEn;

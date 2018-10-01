@@ -21,13 +21,13 @@ interface NumPadControlInterface {
 class MathGenerator implements MathProblemOperationTypeInterface {
 
     public enum OperationType {
-        ADD_SUM_UNDER10             (new MathProblemSumUnder10(),       MathProblemVisualizer.GuiViewType.SIMPLE),
-        ADD_1DIG                    (new MathProblemSumMax1Dig(),       MathProblemVisualizer.GuiViewType.SIMPLE),
-        ADD_TENS                    (new MathProblemSumTens(),          MathProblemVisualizer.GuiViewType.SIMPLE),
-        ADD_2DIG_1DIG               (new MathProblemSum2Dig1Dig(),      MathProblemVisualizer.GuiViewType.SIMPLE),
-        ADD_2DIG_ROUND_2DIG         (new MathProblemSum2DigRound2Dig(), MathProblemVisualizer.GuiViewType.SIMPLE),
-        ADD_SUM_UNDER100            (new MathProblemSumUnder100(),      MathProblemVisualizer.GuiViewType.SIMPLE),
-        ADD_2DIG                    (new MathProblemSum2Dig(),          MathProblemVisualizer.GuiViewType.SIMPLE),
+        ADD_SUM_UNDER10             (new MathProblemAddUnder10(),       MathProblemVisualizer.GuiViewType.SIMPLE),
+        ADD_1DIG                    (new MathProblemAddMax1Dig(),       MathProblemVisualizer.GuiViewType.SIMPLE),
+        ADD_TENS                    (new MathProblemAddTens(),          MathProblemVisualizer.GuiViewType.SIMPLE),
+        ADD_2DIG_1DIG               (new MathProblemAdd2Dig1Dig(),      MathProblemVisualizer.GuiViewType.SIMPLE),
+        ADD_2DIG_ROUND_2DIG         (new MathProblemAdd2DigRound2Dig(), MathProblemVisualizer.GuiViewType.SIMPLE),
+        ADD_SUM_UNDER100            (new MathProblemAddUnder100(),      MathProblemVisualizer.GuiViewType.SIMPLE),
+        ADD_2DIG                    (new MathProblemAdd2Dig(),          MathProblemVisualizer.GuiViewType.SIMPLE),
 
         SUB_1DIG                    (new MathProblemSubUnder10(),       MathProblemVisualizer.GuiViewType.SIMPLE),
         SUB_UNDER20                 (new MathProblemSubUnder20(),       MathProblemVisualizer.GuiViewType.SIMPLE),
@@ -48,8 +48,8 @@ class MathGenerator implements MathProblemOperationTypeInterface {
         DIV_1DIGxUNDER20            (new MathProblemDiv2DigUnder20(),   MathProblemVisualizer.GuiViewType.SIMPLE),
         DIV_1DIGxUNDER30            (new MathProblemDiv2DigUnder30(),   MathProblemVisualizer.GuiViewType.SIMPLE),
 
-        LCM_2DIG                    (new MathProblemLCM2(),             MathProblemVisualizer.GuiViewType.LCM),
-        LCM_3DIG                    (new MathProblemLCM3(),             MathProblemVisualizer.GuiViewType.LCM),
+        LCM_2DIG                    (new MathProblemLCM2Dig(),             MathProblemVisualizer.GuiViewType.LCM),
+        LCM_3DIG                    (new MathProblemLCM3Dig(),             MathProblemVisualizer.GuiViewType.LCM),
 
         FRACT_EXTRACT_WHOLE         (new MathProblemFractExtractWhole(),        MathProblemVisualizer.GuiViewType.FRACTION_EXTRACT_WHOLE),
 

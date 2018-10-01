@@ -16,7 +16,7 @@ class MathProblemLCM {
     }
 }
 
-class MathProblemLCM2 extends MathProblem {
+class MathProblemLCM2Dig extends MathProblem {
     @Override
     public String getDescription() {return "LCM of 2 numbers";}
 
@@ -31,7 +31,7 @@ class MathProblemLCM2 extends MathProblem {
     }
 }
 
-class MathProblemLCM3 extends MathProblem {
+class MathProblemLCM3Dig extends MathProblem {
     @Override
     public String getDescription() {return "LCM of 3 numbers";}
 

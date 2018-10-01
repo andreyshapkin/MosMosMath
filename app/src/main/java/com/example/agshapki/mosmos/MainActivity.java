@@ -93,6 +93,9 @@ public class MainActivity extends Activity implements MainActivityInterface {
             case R.id.menuSoundLevel:
                 startDialogSoundLevel();
                 break;
+            case R.id.menuAbout:
+                startDialogAbout();
+                break;
             default:
                 return false;
                 //return super.onOptionsItemSelected(item);
@@ -111,6 +114,12 @@ public class MainActivity extends Activity implements MainActivityInterface {
     private void startDialogSoundLevel() {
         Log.d(TAG, "startDialogSoundLevel: ");
         Dialog dialog = new DialogSoundLevel(this);
+        dialog.show();
+    }
+
+    private void startDialogAbout() {
+        Log.d(TAG, "startDialogAbout: ");
+        Dialog dialog = new DialogAbout(this);
         dialog.show();
     }
 
