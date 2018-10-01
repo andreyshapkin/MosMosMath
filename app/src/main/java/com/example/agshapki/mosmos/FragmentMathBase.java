@@ -69,7 +69,7 @@ abstract public class FragmentMathBase extends Fragment {
         MathVisualizerBase problemVisualizer = MathProblemVisualizer.getInstance().visualizeMathProblem();
 
         if ((mathProblemTextViewList.size() != problemVisualizer.contentList.size())) {
-            Log.d(TAG, "updateGui: ERROR: visualizer is out of sync on size " + mathProblemTextViewList.size() + " " + problemVisualizer.contentList.size());
+            Log.e(TAG, "updateGui: ERROR: visualizer is out of sync on size " + mathProblemTextViewList.size() + " " + problemVisualizer.contentList.size());
             throw new AssertionError();
         }
 

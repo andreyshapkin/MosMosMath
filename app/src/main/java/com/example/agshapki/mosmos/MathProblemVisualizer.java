@@ -7,18 +7,20 @@ public class MathProblemVisualizer implements NumPadControlInterface {
     private static final String TAG = "MathProblemVisualizer";
 
     public enum GuiViewType {
-        INVALID                     (null),
-        SIMPLE                      (new MathVisualizerSimple()),
-        LCM                         (new MathVisualizerLCM()),
-        FRACTION_EXTRACT_WHOLE      (new MathVisualizerFractionExtractWhole()),
-        FRACTION_SIMPLE             (new MathVisualizerFractionSimple()),
-        FRACTION_COMPLEX            (new MathVisualizerFractionComplex());
+        INVALID                     (null,null),
+        SIMPLE                      (new MathVisualizerSimple()                 , new FragmentMathSimple()),
+        LCM                         (new MathVisualizerLCM()                    , new FragmentMathLCM()),
+        FRACTION_EXTRACT_WHOLE      (new MathVisualizerFractionExtractWhole()   , new FragmentMathFractionExtractWhole()),
+        FRACTION_SIMPLE             (new MathVisualizerFractionSimple()         , new FragmentMathFractionSimple()),
+        FRACTION_COMPLEX            (new MathVisualizerFractionComplex()        , new FragmentMathFractionComplex());
 
         public MathVisualizerBase problemVisualizer;
+        public FragmentMathBase fragmentMath;
 
-        GuiViewType(MathVisualizerBase problemVisualizer) {
+        GuiViewType(MathVisualizerBase problemVisualizer, FragmentMathBase fragmentMath) {
             Log.d(TAG, "GuiViewType: creating new  instance " + this.toString());
             this.problemVisualizer = problemVisualizer;
+            this.fragmentMath = fragmentMath;
         }
     }
 
@@ -31,6 +33,7 @@ public class MathProblemVisualizer implements NumPadControlInterface {
     }
 
     MathDayStats stats = new MathDayStats();
+    SoundMaker soundMaker = new SoundMaker();
     MathGenerator mathGenerator = new MathGenerator();
     MathProblem currentMathProblem;
 
@@ -123,8 +126,10 @@ public class MathProblemVisualizer implements NumPadControlInterface {
     public void HandleEnterButton() {
         if (checkResult()) {
             popMessage = "Good Job!!!";
+            soundMaker.playGood();
             startNewProblem();
         } else {
+            soundMaker.playBad();
             popMessage = "Ooopsy, try again!!!";
         }
     }

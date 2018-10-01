@@ -4,11 +4,11 @@
     <item
         android:id="@+id/menuSelectMathProblem"
         android:icon="@mipmap/ic_launcher"
-        android:title="Select math problems" />
+        android:title="Select Math Problems" />
     <item
-        android:id="@+id/menuSettings"
+        android:id="@+id/menuSoundLevel"
         android:icon="@mipmap/ic_launcher"
-        android:title="Settings" />
+        android:title="Set Sound Level" />
     <item
         android:id="@+id/menuAbout"
         android:icon="@mipmap/ic_launcher"

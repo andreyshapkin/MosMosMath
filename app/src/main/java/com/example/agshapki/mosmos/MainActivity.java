@@ -1,7 +1,9 @@
 package com.example.agshapki.mosmos;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ interface MainActivityInterface {
 public class MainActivity extends Activity implements MainActivityInterface {
 
     private static final String TAG = "MainActivity";
+    public static Context context;
 
     MathProblemVisualizer mathProblemVisualizer =  new MathProblemVisualizer();
 
@@ -33,17 +36,10 @@ public class MainActivity extends Activity implements MainActivityInterface {
     TextView textViewDescription;
     TextView textViewStats;
 
-    Map<MathProblemVisualizer.GuiViewType,FragmentMathBase> fragmentMap = new HashMap<>();
     FragmentMathBase activeFragment;
 
     MainActivity() {
         Log.d(TAG, "MainActivity: started");
-
-        fragmentMap.put(MathProblemVisualizer.GuiViewType.SIMPLE,new FragmentMathSimple());
-        fragmentMap.put(MathProblemVisualizer.GuiViewType.FRACTION_EXTRACT_WHOLE,new FragmentMathFractionExtractWhole());
-        fragmentMap.put(MathProblemVisualizer.GuiViewType.FRACTION_SIMPLE,new FragmentMathFractionSimple());
-        fragmentMap.put(MathProblemVisualizer.GuiViewType.FRACTION_COMPLEX,new FragmentMathFractionComplex());
-        fragmentMap.put(MathProblemVisualizer.GuiViewType.LCM, new FragmentMathLCM());
     }
 
 
@@ -51,6 +47,7 @@ public class MainActivity extends Activity implements MainActivityInterface {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = this;
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferencesEditor = sharedPreferences.edit();
@@ -92,9 +89,15 @@ public class MainActivity extends Activity implements MainActivityInterface {
         switch (item.getItemId()) {
             case R.id.menuSelectMathProblem:
                 startMenuActivity();
+                break;
+            case R.id.menuSoundLevel:
+                startDialogSoundLevel();
+                break;
             default:
-                return super.onOptionsItemSelected(item);
+                return false;
+                //return super.onOptionsItemSelected(item);
         }
+        return true;
     }
 
     static final int REQUEST_MENU_ACTIVITY = 1;  // The request code
@@ -103,6 +106,12 @@ public class MainActivity extends Activity implements MainActivityInterface {
         Log.d(TAG, "startMenuActivity: starting menu activity");
         Intent intent = new Intent(this, MenuSelectMathProblemsActivity.class);
         startActivityForResult(intent, REQUEST_MENU_ACTIVITY);
+    }
+
+    private void startDialogSoundLevel() {
+        Log.d(TAG, "startDialogSoundLevel: ");
+        Dialog dialog = new DialogSoundLevel(this);
+        dialog.show();
     }
 
     @Override
@@ -129,7 +138,7 @@ public class MainActivity extends Activity implements MainActivityInterface {
 
         // FIXME - remove this dependency
         Log.d(TAG, "updateGui: loading fragment " + problemVisualizer.guiViewType.toString());
-        FragmentMathBase fragment = fragmentMap.get(problemVisualizer.guiViewType);
+        FragmentMathBase fragment = problemVisualizer.guiViewType.fragmentMath;
         fragment.updateGui();
         fragmentTransaction.replace(R.id.mathProblemFrame, fragment);
         fragmentTransaction.commit();
