@@ -60,7 +60,7 @@ public class MathProblemVisualizer implements NumPadControlInterface {
     }
 
     public String visualizeStats() {
-        return "Total: " + String.valueOf(stats.getTotal())
+        return "Total today: " + String.valueOf(stats.getTotal())
                 + " right: " + String.valueOf(stats.getRight())
                 + " wrong: " + String.valueOf(stats.getWrong());
     }
