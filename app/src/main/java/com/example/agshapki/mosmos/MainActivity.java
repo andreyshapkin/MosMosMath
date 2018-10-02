@@ -14,18 +14,21 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.HashMap;
-import java.util.Map;
-
-interface MainActivityInterface {
-    void updateGui();
-    void updateResultsGui();
-}
-
-public class MainActivity extends Activity implements MainActivityInterface {
+//public class MainActivity extends Activity implements MainActivityInterface {
+public class MainActivity extends Activity {
 
     private static final String TAG = "MainActivity";
+
+    class MainActivityInterface implements com.example.agshapki.mosmos.MainActivityInterface {
+        @Override
+        public void updateGui() {mainActivity.updateGui();}
+        @Override
+        public void updateResultsGui() {mainActivity.updateResultsGui();}
+    }
+
     public static Context context;
+    public static MainActivity mainActivity;
+    MainActivityInterface mainActivityInterface;
 
     MathProblemVisualizer mathProblemVisualizer =  new MathProblemVisualizer();
 
@@ -38,16 +41,15 @@ public class MainActivity extends Activity implements MainActivityInterface {
 
     FragmentMathBase activeFragment;
 
-    MainActivity() {
-        Log.d(TAG, "MainActivity: started");
-    }
-
+    public MainActivity() {}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
+        mainActivity = this;
+        mainActivityInterface = new MainActivityInterface();
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferencesEditor = sharedPreferences.edit();
@@ -64,7 +66,7 @@ public class MainActivity extends Activity implements MainActivityInterface {
 
         Log.d(TAG, "onCreate: loading numPad frame");
         FragmentNumPad fragmentNumpad = new FragmentNumPad();
-        fragmentNumpad.activityInterface = this;
+        fragmentNumpad.activityInterface = mainActivityInterface;
         fragmentNumpad.controlInterface = mathProblemVisualizer;
         fragmentTransaction.add(R.id.numPadFrame, fragmentNumpad);
 
@@ -134,7 +136,6 @@ public class MainActivity extends Activity implements MainActivityInterface {
         }
     }
 
-    @Override
     public void updateGui() {
         Log.d(TAG, "updateGui");
 
@@ -157,7 +158,6 @@ public class MainActivity extends Activity implements MainActivityInterface {
     }
 
     // for performance, only to re-draw
-    @Override
     public void updateResultsGui() {
         Log.d(TAG, "updateResultsGui");
 
