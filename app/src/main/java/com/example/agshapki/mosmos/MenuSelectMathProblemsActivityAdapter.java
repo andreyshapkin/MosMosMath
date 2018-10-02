@@ -1,6 +1,8 @@
 package com.example.agshapki.mosmos;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 public class MenuSelectMathProblemsActivityAdapter extends RecyclerView.Adapter<MenuSelectMathProblemsActivityAdapter.MenuSelectProblemActivityHolder> {
     private static final String TAG = "MathProblemsAdapter";
     private MenuSelectMathProblemsVisualizerInterface control;
+    private Context context;
 
     public MenuSelectMathProblemsActivityAdapter(MenuSelectMathProblemsVisualizerInterface control) {
         this.control = control;
@@ -22,6 +25,7 @@ public class MenuSelectMathProblemsActivityAdapter extends RecyclerView.Adapter<
     public MenuSelectProblemActivityHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.d(TAG, "onCreateViewHolder: inflating activity");
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_menu_select_math_problems_item, parent, false);
+        this.context = parent.getContext();
         return new MenuSelectProblemActivityHolder(view);
     }
 
@@ -47,9 +51,11 @@ public class MenuSelectMathProblemsActivityAdapter extends RecyclerView.Adapter<
             }
         });
         if ((position&1) ==0) {
-            holder.layout.setBackgroundColor(Color.LTGRAY);
+            //holder.layout.setBackgroundColor(Color.parseColor("#65b480"));
+            holder.layout.setBackgroundColor(ContextCompat.getColor(this.context, R.color.ProblemSelect1));
         } else {
-            holder.layout.setBackgroundColor(Color.TRANSPARENT);
+            //holder.layout.setBackgroundColor(Color.parseColor("#4dc676"));
+            holder.layout.setBackgroundColor(ContextCompat.getColor(this.context, R.color.ProblemSelect2));
         }
     }
 
