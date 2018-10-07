@@ -15,8 +15,8 @@ class MathProblemDiv1Dig extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op2 = random.nextInt(9) + 2;
-        int result = random.nextInt(9) + 2;
+        int op2 = random_in_range(2,10);
+        int result = random_in_range(2,10);
         MathProblemDivision.generate_div_generic(this, op2, result);
     }
 }
@@ -27,8 +27,8 @@ class MathProblemDiv2DigSimple extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op2 = random.nextInt(9) + 2;
-        int result = (random.nextInt(9) + 2) * 10;
+        int op2 = random_in_range(2,10);
+        int result = (random_in_range(2,10)) * 10;
         MathProblemDivision.generate_div_generic(this, op2, result);
     }
 }
@@ -39,8 +39,8 @@ class MathProblemDiv2DigUnder20 extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op2 = random.nextInt(9) + 2;
-        int result = random.nextInt(10) + 11;
+        int op2 = random_in_range(2,10);
+        int result = random_in_range(11,20);
         MathProblemDivision.generate_div_generic(this, op2, result);
     }
 }
@@ -51,8 +51,8 @@ class MathProblemDiv2DigUnder30 extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op2 = random.nextInt(9) + 2;
-        int result = random.nextInt(10) + 21;
+        int op2 = random_in_range(2,10);
+        int result = random_in_range(21,30);
         MathProblemDivision.generate_div_generic(this, op2, result);
     }
 }

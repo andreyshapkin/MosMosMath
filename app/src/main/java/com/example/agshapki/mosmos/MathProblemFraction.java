@@ -29,9 +29,9 @@ class MathProblemFractExtractWhole extends MathProblem {
 
     @Override
     public void generateMe() {
-        int RWhole = random.nextInt(10) + 1;
-        int Aden = random.nextInt(9) + 2;
-        int Rnum = random.nextInt(Aden - 1) + 1;
+        int RWhole = random_in_range(1,10);
+        int Aden = random_in_range(2,10);
+        int Rnum = random_in_range(1,Aden - 1);
         int Anum = RWhole * Aden + Rnum;
 
         operands.add(Anum);
@@ -48,10 +48,10 @@ class MathProblemFractSimpleAddSameDen extends MathProblem {
 
     @Override
     public void generateMe() {
-        int den = random.nextInt(18) + 3;
-        int An = random.nextInt(den - 2) + 1;
+        int den = random_in_range(3,20);
+        int An = random_in_range(1, den - 2);
         int Ad = den;
-        int Bn = random.nextInt(20 - An) + 1;
+        int Bn = random_in_range(1, den - An - 1);
         int Bd = den;
         int Rn = An + Bn;
         int Rd = den;
@@ -66,10 +66,10 @@ class MathProblemFractSimpleSubSameDen extends MathProblem {
 
     @Override
     public void generateMe() {
-        int den = random.nextInt(18) + 3;
-        int An = random.nextInt(den - 1) + 1;
+        int den = random_in_range(3,20);
+        int An = random_in_range(2,den - 1);
         int Ad = den;
-        int Bn = random.nextInt(An - 1 ) + 1;
+        int Bn = random_in_range(1,An - 1 );
         int Bd = den;
         int Rn = An - Bn;
         int Rd = den;
@@ -84,12 +84,12 @@ class MathProblemFractAddSameDen extends MathProblem {
 
     @Override
     public void generateMe() {
-        int den = random.nextInt(18) + 3;
-        int Ah = random.nextInt(10) + 1;
-        int An = random.nextInt(den - 2) + 1;
+        int den = random_in_range(3,20);
+        int Ah = random_in_range(1,10);
+        int An = random_in_range(1, den - 2);
         int Ad = den;
-        int Bh = random.nextInt(10) + 1;
-        int Bn = random.nextInt(den - An - 1) + 1;
+        int Bh = random_in_range(1,10);
+        int Bn = random_in_range(1,den - An - 1);
         int Bd = den;
         int Rh = Ah + Bh;
         int Rn = An + Bn;
@@ -105,12 +105,12 @@ class MathProblemFractSubSameDen extends MathProblem {
 
     @Override
     public void generateMe() {
-        int den = random.nextInt(16) + 5;
-        int Ah = random.nextInt(16) + 5;
-        int An = random.nextInt(den - 3) + 2;
+        int den = random_in_range(5,20);
+        int Ah = random_in_range(5,20);
+        int An = random_in_range(2, den - 3);
         int Ad = den;
-        int Bh = random.nextInt(Ah - 1) + 1;
-        int Bn = random.nextInt(An - 1) + 1;
+        int Bh = random_in_range(1, Ah - 1);
+        int Bn = random_in_range(1, An -1);
         int Bd = den;
         int Rh = Ah - Bh;
         int Rn = An - Bn;

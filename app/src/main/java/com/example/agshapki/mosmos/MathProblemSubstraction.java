@@ -16,8 +16,8 @@ class MathProblemSubUnder10 extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op1 = random.nextInt(10) + 1;
-        int op2 = random.nextInt(op1) + 1;
+        int op1 = random_in_range(1,10);
+        int op2 = random_in_range(1,op1);
         MathProblemSubstraction.generate_sub_generic(this, op1, op2);
     }
 }
@@ -28,8 +28,8 @@ class MathProblemSubUnder20 extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op1 = random.nextInt(10) + 10;
-        int op2 = random.nextInt(9) + 1;
+        int op1 = random_in_range(10,19);
+        int op2 = random_in_range(1,9);
         MathProblemSubstraction.generate_sub_generic(this, op1, op2);
     }
 }
@@ -40,8 +40,8 @@ class MathProblemSub2Dig1DigSimp extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op1 = random.nextInt(99) + 1;
-        int op2 = random.nextInt((op1 % 10) + 1);
+        int op1 = random_in_range(1,99);
+        int op2 = random_in_range(0,op1%10);
         MathProblemSubstraction.generate_sub_generic(this, op1, op2);
     }
 }
@@ -52,8 +52,8 @@ class MathProblemSub2Dig1Dig extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op1 = random.nextInt(90) + 10;
-        int op2 = random.nextInt(9) + 1;
+        int op1 = random_in_range(10, 99);
+        int op2 = random_in_range(1, 9);
         MathProblemSubstraction.generate_sub_generic(this, op1, op2);
     }
 }
@@ -64,8 +64,8 @@ class MathProblemSubTens extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op1 = (random.nextInt(9) + 1) * 10;
-        int op2 = (random.nextInt(op1/10) + 1) * 10;
+        int op1 = random_in_range(1,9) * 10;
+        int op2 = random_in_range(1, op1/10) * 10;
         MathProblemSubstraction.generate_sub_generic(this, op1, op2);
     }
 }
@@ -76,8 +76,8 @@ class MathProblemSub2DigSimple extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op1 = random.nextInt(90) + 10;
-        int op2 = (random.nextInt(op1 / 10)) * 10 + random.nextInt((op1 % 10) + 1);
+        int op1 = random_in_range(10,99);
+        int op2 = random_in_range(0,op1 / 10) * 10 + random_in_range(0,op1 % 10);
         MathProblemSubstraction.generate_sub_generic(this, op1, op2);
     }
 }
@@ -88,8 +88,8 @@ class MathProblemSub2Dig extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op1 = random.nextInt(90) + 10;
-        int op2 = random.nextInt(op1) + 1;
+        int op1 = random_in_range(10,99);
+        int op2 = random_in_range(1,op1 - 1);
         MathProblemSubstraction.generate_sub_generic(this, op1, op2);
     }
 }

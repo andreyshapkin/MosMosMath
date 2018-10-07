@@ -13,6 +13,13 @@ public class MathGeneratorTest {
     private static final String TAG = "MathGeneratorTest";
 
     @Test
+    public void test_generate_range() {
+        MathProblem mathProblem = mathGenerator.generateMathProblem(MathGenerator.OperationType.ADD_SUM_UNDER10);
+        assertInRange(mathProblem.random_in_range(0,2),0, 2);
+        assertInRange(mathProblem.random_in_range(2,4),2, 4);
+    }
+
+    @Test
     public void test_addition_all() {
         for (int i = 0; i < 100; i++) {
             MathProblem mathProblem = mathGenerator.generateMathProblem(MathGenerator.OperationType.ADD_SUM_UNDER10);
@@ -213,24 +220,34 @@ public class MathGeneratorTest {
     }
 
     @Test
-    public void testFractionAdd() {
+    public void testFraction() {
         for (int i = 0; i < 100; i++) {
-            MathProblem mathProblem = mathGenerator.generateMathProblem(MathGenerator.OperationType.FRACT_ADD_SAME_DEN);
+            MathProblem mathProblem = mathGenerator.generateMathProblem(OperationType.FRACT_EXTRACT_WHOLE);
+            assertInRange(mathProblem.result.get(0), 1, 10);
+
+            mathProblem = mathGenerator.generateMathProblem(OperationType.FRACT_SIMPLE_ADD_SAME_DEN);
+            assertInRange(mathProblem.operands.get(0), 1, 20);
+            assertInRange(mathProblem.operands.get(1), 1, 20);
+            assertTrue(mathProblem.result.get(0) < mathProblem.result.get(1));
+
+            mathProblem = mathGenerator.generateMathProblem(OperationType.FRACT_SIMPLE_SUB_SAME_DEN);
+            assertInRange(mathProblem.operands.get(0), 1, 20);
+            assertInRange(mathProblem.operands.get(1), 1, 20);
+            assertTrue(mathProblem.result.get(0) < mathProblem.result.get(1));
+
+            mathProblem = mathGenerator.generateMathProblem(MathGenerator.OperationType.FRACT_ADD_SAME_DEN);
             assertInRange(mathProblem.operands.get(1), 1, 20);
             assertInRange(mathProblem.operands.get(2), 1, 20);
-            assertInRange(mathProblem.result.get(1), 1, mathProblem.result.get(2) - 1);
+            assertTrue(mathProblem.result.get(1) < mathProblem.result.get(2));
+
+            mathProblem = mathGenerator.generateMathProblem(MathGenerator.OperationType.FRACT_SUB_SAME_DEN);
+            assertInRange(mathProblem.operands.get(1), 1, 20);
+            assertInRange(mathProblem.operands.get(2), 1, 20);
+            assertTrue(mathProblem.result.get(1) < mathProblem.result.get(2));
+
         }
     }
 
-    @Test
-    public void testFractionSub() {
-        for (int i = 0; i < 100; i++) {
-            MathProblem mathProblem = mathGenerator.generateMathProblem(MathGenerator.OperationType.FRACT_SUB_SAME_DEN);
-            assertInRange(mathProblem.operands.get(1), 1, 20);
-            assertInRange(mathProblem.operands.get(2), 1, 20);
-            assertInRange(mathProblem.result.get(1), 1, mathProblem.result.get(2) - 1);
-        }
-    }
 
 
 

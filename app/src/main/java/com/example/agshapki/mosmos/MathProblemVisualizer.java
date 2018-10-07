@@ -24,11 +24,16 @@ public class MathProblemVisualizer implements NumPadControlInterface {
         }
     }
 
+    private MathProblemVisualizer() {
+        Log.d(TAG, "MathProblemVisualizer: constructor");
+    }
 
     // Fragments needs access to it, otherwise need to pass it to the Fragments somehow
     private static MathProblemVisualizer _static_entry = null;
     static MathProblemVisualizer getInstance() {
-        if (_static_entry == null) {throw new NullPointerException();}
+        if (_static_entry == null) {
+            _static_entry = new MathProblemVisualizer();
+        }
         return _static_entry;
     }
 
@@ -41,17 +46,6 @@ public class MathProblemVisualizer implements NumPadControlInterface {
 
     // pop message to show in the gui
     String popMessage = "";
-
-    MathProblemVisualizer() {
-        Log.d(TAG, "MathProblemVisualizer: constructor");
-
-        if (_static_entry != null) {
-            Log.d(TAG, "MathProblemVisualizer: ERROR: already has instance of MathProblemVisualizer");
-            throw new AssertionError();
-        } else {
-            _static_entry = this;
-        }
-    }
 
     public String visualizePopMessage() {
         String result = popMessage;

@@ -15,8 +15,8 @@ class MathProblemMultUnder5 extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op1 = random.nextInt(4) + 2;
-        int op2 = random.nextInt(9) + 2;
+        int op1 = random_in_range(2,5);
+        int op2 = random_in_range(2,10);
         MathProblemMultiplication.generate_mult_generic(this, op1, op2);
     }
 }
@@ -27,8 +27,8 @@ class MathProblemMult1Dig extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op1 = random.nextInt(9) + 2;
-        int op2 = random.nextInt(9) + 2;
+        int op1 = random_in_range(2,10);
+        int op2 = random_in_range(2,10);
         MathProblemMultiplication.generate_mult_generic(this, op1, op2);
     }
 }
@@ -39,8 +39,8 @@ class MathProblemMult1DigTens extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op1 = random.nextInt(9) + 2;
-        int op2 = (random.nextInt(9) + 2) * 10;
+        int op1 = random_in_range(2,10);
+        int op2 = random_in_range(2,10) * 10;
         MathProblemMultiplication.generate_mult_generic(this, op1, op2);
     }
 }
@@ -51,8 +51,8 @@ class MathProblemMult1DigBy20 extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op1 = random.nextInt(9) + 2;
-        int op2 = random.nextInt(10) + 11;
+        int op1 = random_in_range(2,10);
+        int op2 = random_in_range(11,20);
         MathProblemMultiplication.generate_mult_generic(this, op1, op2);
     }
 }
@@ -63,8 +63,8 @@ class MathProblemMult1DigBy30 extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op1 = random.nextInt(9) + 2;
-        int op2 = random.nextInt(10) + 21;
+        int op1 = random_in_range(2,10);
+        int op2 = random_in_range(21,30);
         MathProblemMultiplication.generate_mult_generic(this, op1, op2);
     }
 }

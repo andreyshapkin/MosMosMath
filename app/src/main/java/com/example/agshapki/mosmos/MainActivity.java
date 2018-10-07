@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
     public static MainActivity mainActivity;
     MainActivityInterface mainActivityInterface;
 
-    MathProblemVisualizer mathProblemVisualizer =  new MathProblemVisualizer();
+    MathProblemVisualizer mathProblemVisualizer =  MathProblemVisualizer.getInstance();
 
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor sharedPreferencesEditor;

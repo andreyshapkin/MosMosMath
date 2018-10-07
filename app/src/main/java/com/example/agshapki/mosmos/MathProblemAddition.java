@@ -9,14 +9,14 @@ class MathProblemAddition {
     }
 
     public static void generate_add_max_sum(MathProblem mathProblem, int max_sum) {
-        int op1 = mathProblem.random.nextInt(max_sum - 1) + 1;
-        int op2 = mathProblem.random.nextInt(max_sum - op1) + 1;
+        int op1 = mathProblem.random_in_range(1, max_sum - 2);
+        int op2 = mathProblem.random_in_range(1,max_sum - op1);
         generate_add_generic(mathProblem, op1, op2);
     }
 
     public static void generate_add_max_op(MathProblem mathProblem, int max_op) {
-        int op1 = mathProblem.random.nextInt(max_op) + 1;
-        int op2 = mathProblem.random.nextInt(max_op) + 1;
+        int op1 = mathProblem.random_in_range(1,max_op);
+        int op2 = mathProblem.random_in_range(1,max_op);
         generate_add_generic(mathProblem, op1, op2);
     }
 }
@@ -67,8 +67,8 @@ class MathProblemAdd2Dig1Dig extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op1 = random.nextInt(90) + 10;
-        int op2 = random.nextInt(Math.min(9,100-op1)) + 1;
+        int op1 = random_in_range (10,99);
+        int op2 = random_in_range(1,Math.min(9,100-op1));
         MathProblemAddition.generate_add_generic(this, op1, op2);
     }
 }
@@ -79,8 +79,8 @@ class MathProblemAdd2DigRound2Dig extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op1 = (random.nextInt(9) + 1) * 10;
-        int op2 = random.nextInt(100 - op1) + 1;
+        int op1 = random_in_range(1,9) * 10;
+        int op2 = random_in_range(1, 100 - op1);
         MathProblemAddition.generate_add_generic(this, op1, op2);
     }
 }
@@ -91,8 +91,8 @@ class MathProblemAddTens extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op1 = (random.nextInt(9) + 1) * 10;
-        int op2 = (random.nextInt(9) + 1) * 10;
+        int op1 = random_in_range(1,9) * 10;
+        int op2 = random_in_range(1,9) * 10;
         MathProblemAddition.generate_add_generic(this, op1, op2);
     }
 }

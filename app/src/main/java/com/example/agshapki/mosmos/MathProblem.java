@@ -8,7 +8,7 @@ import java.util.Random;
 
 abstract public class MathProblem {
     private static final String TAG = "MathProblem";
-    public static Random random = new Random();
+    private static Random random = new Random();
 
     public MathGenerator.OperationType operationType = MathGenerator.OperationType.INVALID;
     public List<Integer> operands = new ArrayList<Integer>();
@@ -100,5 +100,10 @@ abstract public class MathProblem {
     abstract public void generateMe();
     abstract public String getDescription();
     public String getDetails() {throw new AssertionError("getDetails is not implemented for " + this);}
+
+    public int random_in_range(int min, int max) {
+        assert (max>=min);
+        return random.nextInt(max + 1 - min) + min;
+    }
 
 }

@@ -22,8 +22,8 @@ class MathProblemLCM2Dig extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op1 = random.nextInt(9) + 2;
-        int op2 = random.nextInt(9) + 2;
+        int op1 = random_in_range(2,10);
+        int op2 = random_in_range(2,10);
         int res = MathProblemLCM.getLCM(op1, op2);
         operands.add(op1);
         operands.add(op2);
@@ -37,9 +37,9 @@ class MathProblemLCM3Dig extends MathProblem {
 
     @Override
     public void generateMe() {
-        int op1 = random.nextInt(9) + 2;
-        int op2 = random.nextInt(9) + 2;
-        int op3 = random.nextInt(9) + 2;
+        int op1 = random_in_range(2,10);
+        int op2 = random_in_range(2,10);
+        int op3 = random_in_range(2,10);
         int res = MathProblemLCM.getLCM(op1, op2, op3);
         operands.add(op1);
         operands.add(op2);
