@@ -1,5 +1,6 @@
 package com.example.agshapki.mosmos;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
@@ -123,6 +124,7 @@ public class MainActivity extends Activity {
         Log.d(TAG, "startDialogAbout: ");
         Dialog dialog = new DialogAbout(this);
         dialog.show();
+        dialog.getWindow().setLayout(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
     }
 
     @Override

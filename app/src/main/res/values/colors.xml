@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="MainBackground">#74d495</color>
+    <color name="MainBackgroundOff">#70cc90</color>
     <color name="MathProblemBackground">#7bd2ea</color>
     <color name="DescriptionBackground">#f6d490</color>
     <color name="ProblemSelect1">#98e1df</color>

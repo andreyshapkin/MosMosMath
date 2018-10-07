@@ -37,10 +37,12 @@ abstract class MathVisualizerBase {
             return "-";
         }
         if (operationTypeString.contains("MULT")) {
-            return "*";
+            //return "*";
+            return "\u00D7";
         }
         if (operationTypeString.contains("DIV")) {
-            return "/";
+            //return "/";
+            return "\u00F7";
         }
         return "ERROR";
     }
