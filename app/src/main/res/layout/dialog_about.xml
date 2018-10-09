@@ -11,15 +11,19 @@
         android:id="@+id/dialogAboutImageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/mosmos_xl" />
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/mosmos_dream" />
 
     <TextView
         android:id="@+id/dialogAboutText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
@@ -27,6 +31,6 @@
         android:inputType="textMultiLine"
         android:text="This is text"
         android:textColor="@android:color/black"
-        android:textSize="18sp" />
+        android:textSize="14sp" />
 
 </LinearLayout>

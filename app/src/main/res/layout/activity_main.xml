@@ -28,7 +28,7 @@
             android:layout_weight="80"
             android:gravity="center"
             android:text="Math text"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <ImageView
             android:id="@+id/imageView5"
@@ -71,7 +71,7 @@
             android:layout_weight="90"
             android:gravity="center"
             android:text="stats"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <ImageView
             android:id="@+id/imageView2"
